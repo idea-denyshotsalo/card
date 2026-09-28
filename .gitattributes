@@ -1,0 +1,4 @@
+* text=auto eol=lf
+# vCard lines must stay CRLF (RFC 2426); build.py writes them byte-exact.
+*.vcf -text
+*.woff2 binary
