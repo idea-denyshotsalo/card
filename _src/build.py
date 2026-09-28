@@ -117,7 +117,7 @@ def format_phone(phone: str) -> str:
     return phone
 
 
-def display_value(kind: str, value: str) -> str:
+def display_value(kind: str, value: str) -> Bilingual:
     match kind:
         case "phone":
             return format_phone(value)
@@ -125,8 +125,8 @@ def display_value(kind: str, value: str) -> str:
             return value
         case "telegram" | "instagram":
             return "@" + urlparse(value).path.strip("/")
-        case "linkedin":
-            return urlparse(value).path.strip("/").removeprefix("in/")
+        case "linkedin":  # public URLs end in a random suffix (alona-s-0a8066372): not worth showing
+            return {"uk": "Відкрити профіль", "en": "View profile"}
         case "github":
             return urlparse(value).path.strip("/")
         case _:
@@ -147,7 +147,7 @@ def rows_html(items: dict[str, str]) -> str:
     rows = []
     for kind, value in items.items():
         external = "" if kind in ("phone", "email") else ' target="_blank" rel="noopener"'
-        shown = html.escape(display_value(kind, value))
+        shown = bi(display_value(kind, value))
         if kind == "email":
             shown = shown.replace("@", "@<wbr>")
         rows.append(
