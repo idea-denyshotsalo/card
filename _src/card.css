@@ -1,62 +1,4 @@
-/* IDEA digital business card. Brand tokens mirror 14_CBT_PROTO/web/src/styles/tokens.css. */
-:root {
-  --bg: #e1dcd5;
-  --paper: #ede9e4;
-  --ink: #0a0a0a;
-  --muted: #5c574f;
-  --line: rgba(0, 0, 0, .12);
-  --frame: #0a0a0a;
-  --hover: rgba(0, 0, 0, .04);
-  --accent: #eb3c28;
-  --accent-press: #d23220;
-  --on-accent: #fff;
-  --dark: #00323c;
-  --on-dark: #fff;
-  --on-dark-2: rgba(237, 233, 228, .76);
-  --mark: #063b46;
-  --perf: rgba(0, 0, 0, .3);
-  --lift: drop-shadow(0 18px 22px rgba(74, 54, 38, .2)) drop-shadow(0 2px 3px rgba(74, 54, 38, .14));
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .29 0 0 0 0 .21 0 0 0 0 .15 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --r: 10px;
-  --notch: 11px;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #00262d;
-    --paper: #0d4450;
-    --ink: #ece7e0;
-    --muted: #a3b5b8;
-    --line: rgba(225, 220, 213, .14);
-    --frame: rgba(236, 231, 224, .78);
-    --hover: rgba(255, 255, 255, .05);
-    --dark: #003f4b;
-    --mark: #074856;
-    --perf: rgba(236, 231, 224, .32);
-    --lift: drop-shadow(0 18px 26px rgba(0, 0, 0, .45)) drop-shadow(0 2px 3px rgba(0, 0, 0, .3));
-    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    color-scheme: dark;
-  }
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-[data-lang="uk"] [data-l="en"], [data-lang="en"] [data-l="uk"] { display: none !important; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  padding: max(20px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
-  background: var(--grain), var(--bg);
-  color: var(--ink);
-  font: 400 16px/1.5 "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-feature-settings: "cv11", "ss03";
-  letter-spacing: -.011em;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-}
-
+/* Business card components: the pass, contact list, QR stub, footer. Tokens live in base.css. */
 .wrap { max-width: 420px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
 
 /* ── The pass: dark head + perforated stub ───────────────────────── */
@@ -108,7 +50,7 @@ body {
   text-wrap: balance;
   overflow-wrap: anywhere;
 }
-.pass-name span { display: block; }
+.pass-name > span > span { display: block; }
 .pass-role { margin: 12px 0 0; font-size: 15px; font-weight: 500; line-height: 1.35; color: var(--on-dark-2); }
 
 .pass-stub {
@@ -129,6 +71,8 @@ body {
   top: 0; left: calc(var(--notch) + 7px); right: calc(var(--notch) + 7px);
   border-top: 1.5px dashed var(--perf);
 }
+
+.pass-stub > p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
 
 .fields { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px; margin: 0; }
 .fields dt, .row-k {
@@ -198,7 +142,7 @@ body {
 
 /* ── Footer ─────────────────────────────────────────────────────── */
 .foot { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 14px; text-align: center; }
-.foot-brand { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; }
+.foot-brand { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; color: inherit; text-decoration: none; }
 .foot-brand svg { height: 12px; width: auto; fill: var(--accent); }
 .foot-tag { margin: -6px 0 0; font-size: 12.5px; color: var(--muted); }
 .lang { display: inline-flex; padding: 2px; border: 1.5px solid var(--frame); border-radius: 999px; }
@@ -207,8 +151,6 @@ body {
   color: var(--muted); font: 600 11.5px/1 inherit; letter-spacing: .1em; cursor: pointer;
 }
 .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
 @media (prefers-reduced-motion: no-preference) {
   .pass { animation: rise .7s cubic-bezier(.2, .75, .2, 1) both; }

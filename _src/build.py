@@ -2,7 +2,11 @@
 # requires-python = ">=3.12"
 # dependencies = ["segno>=1.6"]
 # ///
-"""Render every card in people.json into <slug>/index.html + <slug>/contact.vcf.
+"""Render the whole site from people.json.
+
+Per person: <slug>/index.html, contact.vcf (UA), contact.en.vcf, manifest.webmanifest.
+Site-wide: guide/index.html, a landing page at the root when no card lives there,
+and CNAME when `site` is a custom domain.
 
 Run from anywhere: `uv run _src/build.py`.
 """
@@ -18,6 +22,7 @@ import segno
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
+LANGS = ("uk", "en")
 
 # IDEA brand marks (paths from 14_CBT_PROTO/web/public/brand).
 LOGO_D = "M4050.61 0H3451.66L3055.47 836.397H2493.71L2530.52 654.043H3032.86L3075.76 424.321H2573.31L2610.12 243.575H3189.11L3236.63 0H2378.89L2338.45 206.516C2256.27 83.2007 2115.98 0 1952.95 0H211.429L163.93 243.603H410.452L294.021 834.925H48.999L0 1080L1853.59 1079.89C1979.37 1079.89 2096.68 1037.05 2190.15 964.021L2167.46 1079.89H3238.87L3390.39 753.606H3827.02L3851.56 1079.89H4141L4050.61 0ZM687.949 243.603H926.591L810.296 834.925H571.518L687.949 243.603ZM3502.27 510.112L3707.48 69.0203H3776.55L3808.67 510.112H3502.27Z"
@@ -36,6 +41,10 @@ ICONS = {
     "go": '<path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/>',
     "save": '<path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M16 19h6"/><path d="M19 16v6"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4"/>',
     "share": '<path d="M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/>',
+    "copy": '<path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/>',
+    "download": '<path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/>',
+    "check": '<path d="M5 12l5 5l10 -10"/>',
+    "ios_share": '<path d="M12 3v12"/><path d="M8 7l4 -4l4 4"/><path d="M7 11h-1a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-6a2 2 0 0 0 -2 -2h-1"/>',
 }
 
 # Row order and bilingual labels; brand names read the same in both languages.
@@ -61,7 +70,22 @@ def bi(text: Bilingual) -> str:
     """Both language variants as toggled spans; a plain string reads the same in both."""
     if isinstance(text, str) or text["uk"] == text["en"]:
         return html.escape(text if isinstance(text, str) else text["en"])
-    return "".join(f'<span data-l="{lang}">{html.escape(text[lang])}</span>' for lang in ("uk", "en"))
+    return "".join(f'<span data-l="{lang}">{html.escape(text[lang])}</span>' for lang in LANGS)
+
+
+def full_name(person: dict, lang: str) -> str:
+    return f"{person['first'][lang]} {person['last'][lang]}"
+
+
+def name_html(person: dict) -> str:
+    """First and last name on separate lines, one wrapper per language."""
+
+    def lines(lang: str) -> str:
+        return f"<span>{html.escape(person['first'][lang])}</span> <span>{html.escape(person['last'][lang])}</span>"
+
+    if full_name(person, "uk") == full_name(person, "en"):
+        return f"<span>{lines('en')}</span>"
+    return "".join(f'<span data-l="{lang}">{lines(lang)}</span>' for lang in LANGS)
 
 
 def brand_svg(d: str, width: int, cls: str, label: str = "") -> str:
@@ -75,6 +99,16 @@ def favicon() -> str:
         f'<path transform="translate(8 21.25) scale(.01991)" fill="#eb3c28" d="{SIGN_D}"/></svg>'
     )
     return "data:image/svg+xml," + quote(svg)
+
+
+def font_css(prefix: str) -> str:
+    latin = "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    cyrillic = "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116"
+    return "".join(
+        f'@font-face {{ font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; '
+        f'src: url("{prefix}assets/fonts/inter-{subset}-wght.woff2") format("woff2"); unicode-range: {ranges}; }}\n'
+        for subset, ranges in (("latin", latin), ("cyrillic", cyrillic))
+    )
 
 
 def format_phone(phone: str) -> str:
@@ -126,23 +160,43 @@ def rows_html(items: dict[str, str]) -> str:
     return "\n".join(rows)
 
 
+def qr_path(url: str) -> tuple[int, str]:
+    """Module grid as one SVG/Path2D path of filled runs, 4-module quiet zone included."""
+    rows = [list(row) for row in segno.make(url, error="m").matrix_iter(border=4)]
+    runs = []
+    for y, row in enumerate(rows):
+        x = 0
+        while x < len(row):
+            if not row[x]:
+                x += 1
+                continue
+            start = x
+            while x < len(row) and row[x]:
+                x += 1
+            runs.append(f"M{start} {y}h{x - start}v1h-{x - start}z")
+    return len(rows), "".join(runs)
+
+
 def qr_svg(url: str) -> str:
-    svg = segno.make(url, error="m").svg_inline(dark="#00323c", light="#fff", border=4, omitsize=True)
-    return svg.replace("<svg ", '<svg aria-hidden="true" ', 1)
+    n, d = qr_path(url)
+    return (
+        f'<svg viewBox="0 0 {n} {n}" shape-rendering="crispEdges" aria-hidden="true">'
+        f'<rect width="{n}" height="{n}" fill="#fff"/><path fill="#00323c" d="{d}"/></svg>'
+    )
 
 
 def vcard_escape(text: str) -> str:
     return text.replace("\\", "\\\\").replace("\n", "\\n").replace(",", "\\,").replace(";", "\\;")
 
 
-def vcard(person: dict, company: dict, items: dict[str, str]) -> bytes:
+def vcard(person: dict, company: dict, items: dict[str, str], lang: str) -> bytes:
     lines = [
         "BEGIN:VCARD",
         "VERSION:3.0",
-        f"N:{vcard_escape(person['last'])};{vcard_escape(person['first'])};;;",
-        f"FN:{vcard_escape(person['first'] + ' ' + person['last'])}",
+        f"N:{vcard_escape(person['last'][lang])};{vcard_escape(person['first'][lang])};;;",
+        f"FN:{vcard_escape(full_name(person, lang))}",
         f"ORG:{vcard_escape(company['name'])}",
-        f"TITLE:{vcard_escape(person['title']['en'])}",
+        f"TITLE:{vcard_escape(person['title'][lang])}",
     ]
     if phone := items.get("phone"):
         lines.append(f"TEL;TYPE=CELL:{phone}")
@@ -150,30 +204,60 @@ def vcard(person: dict, company: dict, items: dict[str, str]) -> bytes:
         lines.append(f"EMAIL;TYPE=INTERNET:{email}")
     lines += [f"URL:{value}" for kind, value in items.items() if kind not in ("phone", "email")]
     if city := person.get("city"):
-        lines.append(f"ADR;TYPE=WORK:;;;{vcard_escape(city['uk'])};;;")
+        lines.append(f"ADR;TYPE=WORK:;;;{vcard_escape(city[lang])};;;")
     if bio := person.get("bio"):
-        lines.append(f"NOTE:{vcard_escape(bio['uk'])}")
+        lines.append(f"NOTE:{vcard_escape(bio[lang])}")
     lines.append("END:VCARD")
     return ("\r\n".join(lines) + "\r\n").encode()
 
 
-def render(person: dict, data: dict, template: Template, parts: dict[str, str]) -> str:
+def manifest(person: dict, company: dict, prefix: str) -> str:
+    icons = [
+        {"src": f"{prefix}assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
+        {"src": f"{prefix}assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+    ]
+    body = {
+        "name": f"{full_name(person, 'uk')} — {company['name']}",
+        "short_name": "Візитка IDEA",
+        "start_url": "./",
+        "scope": "./",
+        "display": "browser",
+        "background_color": "#e1dcd5",
+        "theme_color": "#00323c",
+        "icons": icons,
+    }
+    return json.dumps(body, ensure_ascii=False, indent=2) + "\n"
+
+
+def person_id(person: dict) -> str:
+    return person["slug"] or "home"
+
+
+def person_url(person: dict, site: str) -> str:
+    return site + (f"{person['slug']}/" if person["slug"] else "")
+
+
+def render_card(person: dict, data: dict, template: Template, parts: dict[str, str]) -> str:
     company = data["company"]
-    slug = person["slug"]
-    url = data["site"] + (f"{slug}/" if slug else "")
-    full_name = f"{person['first']} {person['last']}"
+    url = person_url(person, data["site"])
+    name = {lang: full_name(person, lang) for lang in LANGS}
+    title = person["title"]
+    role = f"{title['uk']} · {title['en']}" if title["uk"] != title["en"] else title["en"]
     bio = f'<p class="bio">{bi(person["bio"])}</p>\n' if person.get("bio") else ""
+    prefix = "../" if person["slug"] else ""
     return template.substitute(
         parts,
-        title=html.escape(f"{full_name} — {company['name']}"),
-        description=html.escape(f"{person['title']['en']} · {company['name']}"),
-        full_name=html.escape(full_name),
+        title_uk=html.escape(f"{name['uk']} — {company['name']}"),
+        title_en=html.escape(f"{name['en']} — {company['name']}"),
+        og_title=html.escape(f"{name['uk']} · {name['en']}" if name["uk"] != name["en"] else name["en"]),
+        description=html.escape(f"{role} · {company['name']}"),
         url=url,
-        assets="../" if slug else "",
+        assets=prefix,
+        font_css=font_css(prefix),
         company=html.escape(company["name"]),
-        first=html.escape(person["first"]),
-        last=html.escape(person["last"]),
-        role=bi(person["title"]),
+        website=company["website"],
+        name=name_html(person),
+        role=bi(title),
         city=bi(person.get("city", "")),
         bio=bio,
         rows=rows_html(contacts(person, company)),
@@ -182,26 +266,98 @@ def render(person: dict, data: dict, template: Template, parts: dict[str, str]) 
     )
 
 
+def render_guide(data: dict, template: Template, parts: dict[str, str]) -> str:
+    company = data["company"]
+    people = []
+    for person in data["people"]:
+        url = person_url(person, data["site"])
+        n, d = qr_path(url)
+        gn, gd = qr_path(f"{data['site']}guide/?p={person_id(person)}")
+        people.append({
+            "id": person_id(person),
+            "url": url,
+            "first": person["first"],
+            "last": person["last"],
+            "title": person["title"],
+            "qr": {"n": n, "d": d},
+            "guideQr": {"n": gn, "d": gd},
+        })
+    payload = {"company": company["name"], "brand": {"logo": LOGO_D, "sign": SIGN_D}, "people": people}
+    options = "".join(f'<option value="{person_id(p)}">{html.escape(full_name(p, "uk"))}</option>' for p in data["people"])
+    return template.substitute(
+        parts,
+        assets="../",
+        font_css=font_css("../"),
+        company=html.escape(company["name"]),
+        website=company["website"],
+        contact_name=html.escape(company["contact"]["name"]),
+        contact_tg=company["contact"]["telegram"],
+        options=options,
+        data_json=json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"),
+    )
+
+
+def render_landing(data: dict, template: Template, parts: dict[str, str]) -> str:
+    company = data["company"]
+    return template.substitute(
+        parts,
+        font_css=font_css(""),
+        company=html.escape(company["name"]),
+        website=company["website"],
+        tagline=bi(company["tagline"]),
+    )
+
+
+def write(path: Path, text: str) -> None:
+    path.parent.mkdir(exist_ok=True)
+    path.write_text(text, encoding="utf-8", newline="\n")
+
+
 def main() -> None:
     data = json.loads((SRC / "people.json").read_text(encoding="utf-8"))
-    template = Template((SRC / "card.html").read_text(encoding="utf-8"))
-    parts = {
-        "css": (SRC / "card.css").read_text(encoding="utf-8"),
-        "lang_js": (SRC / "lang.js").read_text(encoding="utf-8").strip(),
-        "js": (SRC / "card.js").read_text(encoding="utf-8").strip(),
+    company = data["company"]
+
+    def read(name: str) -> str:
+        return (SRC / name).read_text(encoding="utf-8")
+
+    base, card_css = read("base.css"), read("card.css")
+    shared = {
         "favicon": favicon(),
         "logo": brand_svg(LOGO_D, 4141, "pass-logo", "IDEA"),
         "mark": brand_svg(SIGN_D, 2411, "pass-mark"),
         "sign": brand_svg(SIGN_D, 2411, "foot-sign"),
-        "icon_save": icon("save"),
-        "icon_share": icon("share"),
+        "lang_js": read("lang.js").strip(),
+        "js": read("card.js").strip(),
     }
+    card_parts = {**shared, "css": base + card_css, "icon_save": icon("save"), "icon_share": icon("share")}
+    card_tpl = Template(read("card.html"))
+
     for person in data["people"]:
         out = ROOT / person["slug"]
-        out.mkdir(exist_ok=True)
-        (out / "index.html").write_text(render(person, data, template, parts), encoding="utf-8", newline="\n")
-        (out / "contact.vcf").write_bytes(vcard(person, data["company"], contacts(person, data["company"])))
+        items = contacts(person, company)
+        write(out / "index.html", render_card(person, data, card_tpl, card_parts))
+        write(out / "manifest.webmanifest", manifest(person, company, "../" if person["slug"] else ""))
+        (out / "contact.vcf").write_bytes(vcard(person, company, items, "uk"))
+        (out / "contact.en.vcf").write_bytes(vcard(person, company, items, "en"))
         print(f"built {person['slug'] or '(root)'}")
+
+    guide_parts = {
+        **shared,
+        "css": base + card_css + read("guide.css"),
+        "js": read("guide.js").strip(),
+        **{f"icon_{name}": icon(name) for name in ("go", "copy", "download", "check", "ios_share")},
+    }
+    write(ROOT / "guide" / "index.html", render_guide(data, Template(read("guide.html")), guide_parts))
+    print("built guide")
+
+    if not any(p["slug"] == "" for p in data["people"]):
+        write(ROOT / "index.html", render_landing(data, Template(read("landing.html")), {**shared, "css": base + card_css}))
+        print("built landing")
+
+    host = urlparse(data["site"]).hostname
+    if not host.endswith(".github.io"):
+        write(ROOT / "CNAME", host + "\n")
+        print(f"CNAME {host}")
 
 
 if __name__ == "__main__":
