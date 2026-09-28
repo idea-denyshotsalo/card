@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="uk" data-lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Інструкція до візитки — $company</title>
+<meta name="description" content="Як користуватися електронною візиткою IDEA: головний екран, Apple Wallet, Google Wallet.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#e1dcd5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#00262d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="$favicon">
+<link rel="preload" href="${assets}assets/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<style>$font_css$css</style>
+</head>
+<body class="guide">
+<main class="g-wrap">
+<header class="g-head">
+<a class="g-logo" href="$website" target="_blank" rel="noopener" aria-label="$company">$logo</a>
+<span class="kicker">Інструкція</span>
+</header>
+
+<section class="g-hero">
+<h1>Ваша електронна візитка</h1>
+<p class="g-lead">Чотири кроки, приблизно п'ять хвилин. Робіть з телефона, з якого показуватимете візитку.</p>
+<label class="g-pick"><span class="kicker">Чия візитка</span><select id="person">$options</select></label>
+<div class="g-me">
+<div class="g-me-t"><b data-bind="name"></b><span data-bind="title"></span></div>
+<a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити $icon_go</a>
+</div>
+<div class="g-os" role="tablist" aria-label="Телефон">
+<button type="button" role="tab" data-os="ios">iPhone</button>
+<button type="button" role="tab" data-os="android">Android</button>
+</div>
+<div class="g-progress"><div class="g-bar"><i></i></div><span><b data-bind="done">0</b> з 4 готово</span></div>
+</section>
+
+<aside class="g-handoff" hidden>
+<div class="g-handoff-qr" data-qr="guideQr"></div>
+<div><b>Зручніше з телефона</b><p>Наведіть камеру телефона на код: інструкція відкриється вже з вашими даними.</p></div>
+</aside>
+
+<ol class="steps">
+<li class="step" data-step="check">
+<button class="step-h" type="button"><span class="step-n"><span>1</span>$icon_check</span><span class="step-t">Перевірте свою візитку</span><span class="step-m">1 хв</span></button>
+<div class="step-b">
+<p>Відкрийте сторінку й перевірте ім'я, посаду, телефон і пошту. Перемикач UA / EN унизу сторінки показує англійську версію: її бачать іноземні партнери.</p>
+<a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити мою візитку $icon_go</a>
+<p class="note">Щось не так? <a data-contact href="$contact_tg" target="_blank" rel="noopener">Напишіть $contact_name</a>: виправлення з'явиться за хвилину, а QR-код не зміниться.</p>
+<button class="btn btn-accent step-done" type="button">Все правильно, далі</button>
+</div>
+</li>
+
+<li class="step" data-step="home">
+<button class="step-h" type="button"><span class="step-n"><span>2</span>$icon_check</span><span class="step-t">Закріпіть на головному екрані</span><span class="step-m">1 хв</span></button>
+<div class="step-b">
+<ol class="howto" data-only="ios">
+<li>Відкрийте свою візитку в <b>Safari</b> кнопкою нижче.</li>
+<li>Торкніться <b>«Поділитися»</b> <span class="ico">$icon_ios_share</span> на панелі Safari.</li>
+<li>Прокрутіть меню й виберіть <b>«На початковий екран»</b>.</li>
+<li>Натисніть <b>«Додати»</b>.</li>
+</ol>
+<ol class="howto" data-only="android">
+<li>Відкрийте свою візитку в <b>Chrome</b> кнопкою нижче.</li>
+<li>Торкніться <b>⋮</b> у правому верхньому куті.</li>
+<li>Виберіть <b>«Додати на головний екран»</b> або <b>«Установити застосунок»</b>.</li>
+<li>Підтвердьте <b>«Додати»</b>.</li>
+</ol>
+<a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити візитку $icon_go</a>
+<p class="note">На екрані з'явиться іконка IDEA з підписом «Візитка IDEA». Тепер візитка відкривається одним дотиком.</p>
+<button class="btn btn-accent step-done" type="button">Готово, далі</button>
+</div>
+</li>
+
+<li class="step" data-step="wallet">
+<button class="step-h" type="button"><span class="step-n"><span>3</span>$icon_check</span><span class="step-t">Додайте в гаманець</span><span class="step-m">2 хв</span></button>
+<div class="step-b">
+<div class="g-cardlang"><span class="kicker">Мова тексту на картці</span><div class="lang" role="group" aria-label="Мова картки"><button type="button" data-card-lang="uk">UA</button><button type="button" data-card-lang="en">EN</button></div></div>
+
+<div data-only="ios">
+<p>Apple Wallet приймає лише підписані картки. Сервіс WalletWallet підписує їх безкоштовно й без реєстрації.</p>
+<ol class="howto">
+<li>Відкрийте <a href="https://walletwallet.alen.ro" target="_blank" rel="noopener"><b>WalletWallet</b></a> у Safari на цьому iPhone і виберіть вкладку <b>Apple Wallet</b>.</li>
+<li>Заповніть поля: натискайте «Копіювати» і вставляйте.</li>
+</ol>
+<dl class="kv">
+<div><dt>Barcode Data</dt><dd data-bind="url"></dd><button class="copy" type="button" data-copy="url">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Output Format</dt><dd>QR Code</dd><span class="kv-hint">у списку</span></div>
+<div><dt>Pass Title</dt><dd>$company</dd><button class="copy" type="button" data-copy="company">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Label</dt><dd data-bind="cardName"></dd><button class="copy" type="button" data-copy="cardName">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Value</dt><dd data-bind="cardTitle"></dd><button class="copy" type="button" data-copy="cardTitle">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Card Color</dt><dd><i class="swatch"></i>#00323C</dd><button class="copy" type="button" data-copy="color">$icon_copy<span>Копіювати</span></button></div>
+</dl>
+<ol class="howto" start="3">
+<li>Необов'язково: <button class="link" type="button" data-download="logo">завантажте логотип IDEA</button> і додайте його в <b>Pass Logo</b>.</li>
+<li>Натисніть <b>Download .pkpass</b>, а потім <b>«Додати»</b> у вікні Apple Wallet.</li>
+</ol>
+</div>
+
+<div data-only="android">
+<ol class="howto">
+<li>Збережіть фірмову картку з вашим QR-кодом:
+<figure class="g-wallet"><img alt="Картка для гаманця" data-wallet-preview><button class="btn btn-accent" type="button" data-download="wallet">$icon_download Завантажити картку</button></figure>
+</li>
+<li>Відкрийте <b>Google Гаманець</b> і торкніться <b>«Додати в Google Гаманець»</b> → <b>«Фотографія»</b>.</li>
+<li>Виберіть завантажену картинку (папка «Завантаження»), у назві напишіть <b>Візитка IDEA</b> і натисніть <b>«Додати»</b>.</li>
+</ol>
+<details class="alt">
+<summary>Немає пункту «Фотографія»?</summary>
+<p>Відкрийте <a href="https://walletwallet.alen.ro" target="_blank" rel="noopener"><b>WalletWallet</b></a>, виберіть вкладку <b>Google Wallet</b> і заповніть поля:</p>
+<dl class="kv">
+<div><dt>Barcode Data</dt><dd data-bind="url"></dd><button class="copy" type="button" data-copy="url">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Output Format</dt><dd>QR Code</dd><span class="kv-hint">у списку</span></div>
+<div><dt>Pass Title</dt><dd>$company</dd><button class="copy" type="button" data-copy="company">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Label</dt><dd data-bind="cardName"></dd><button class="copy" type="button" data-copy="cardName">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Value</dt><dd data-bind="cardTitle"></dd><button class="copy" type="button" data-copy="cardTitle">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Card Color</dt><dd><i class="swatch"></i>#00323C</dd><button class="copy" type="button" data-copy="color">$icon_copy<span>Копіювати</span></button></div>
+</dl>
+<p>Потім натисніть <b>Add to Google Wallet</b>.</p>
+</details>
+</div>
+
+<p class="note">Як показувати: відкрийте картку в гаманці, людина сканує QR камерою й одразу бачить вашу візитку.</p>
+<button class="btn btn-accent step-done" type="button">Готово, далі</button>
+</div>
+</li>
+
+<li class="step" data-step="share">
+<button class="step-h" type="button"><span class="step-n"><span>4</span>$icon_check</span><span class="step-t">Діліться посиланням</span><span class="step-m">1 хв</span></button>
+<div class="step-b">
+<dl class="kv">
+<div><dt>Ваше посилання</dt><dd data-bind="url"></dd><button class="copy" type="button" data-copy="url">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Англійською</dt><dd data-bind="urlEn"></dd><button class="copy" type="button" data-copy="urlEn">$icon_copy<span>Копіювати</span></button></div>
+</dl>
+<ul class="tips">
+<li><b>При зустрічі.</b> Відкрийте візитку й торкніться QR: він розгорнеться на весь екран.</li>
+<li><b>У листах.</b> Додайте посилання в підпис пошти.</li>
+<li><b>У профілях.</b> Опис у Telegram, у LinkedIn: Contact info → Website.</li>
+<li><b>Іноземним партнерам</b> надсилайте англійське посилання.</li>
+</ul>
+<button class="btn btn-accent step-done" type="button">Готово</button>
+</div>
+</li>
+</ol>
+
+<section class="g-finish" hidden>
+<b>Усе готово</b>
+<p>Візитка на головному екрані й у гаманці. Якщо дані зміняться, картки переробляти не треба: QR веде на сторінку, а сторінка оновлюється.</p>
+</section>
+
+<footer class="foot">
+<a class="foot-brand" href="$website" target="_blank" rel="noopener">$sign<span>$company</span></a>
+<p class="foot-tag">Змінилися посада чи телефон? <a href="$contact_tg" target="_blank" rel="noopener">Напишіть $contact_name</a>.</p>
+</footer>
+</main>
+<script type="application/json" id="guide-data">$data_json</script>
+<script>$js</script>
+</body>
+</html>

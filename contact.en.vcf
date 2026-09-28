@@ -1,7 +1,7 @@
 BEGIN:VCARD
 VERSION:3.0
-N:Гоцало;Денис;;;
-FN:Денис Гоцало
+N:Hotsalo;Denys;;;
+FN:Denys Hotsalo
 ORG:IDEA Travel Solutions
 TITLE:Junior AI/ML Engineer
 TEL;TYPE=CELL:+380934148277
@@ -11,6 +11,6 @@ URL:https://t.me/den8eight
 URL:https://ideatravel.solutions
 URL:https://instagram.com/den.eight
 URL:https://github.com/DenEight8
-ADR;TYPE=WORK:;;;Київ;;;
-NOTE:Будую LLM-ботів і агентів\, які автоматизують бізнес-процеси компанії.
+ADR;TYPE=WORK:;;;Kyiv;;;
+NOTE:I build LLM bots and agents that automate the company's business processes.
 END:VCARD

@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="uk" data-lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Інструкція до візитки — IDEA Travel Solutions</title>
+<meta name="description" content="Як користуватися електронною візиткою IDEA: головний екран, Apple Wallet, Google Wallet.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#e1dcd5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#00262d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%2300323c%22/%3E%3Cpath%20transform%3D%22translate%288%2021.25%29%20scale%28.01991%29%22%20fill%3D%22%23eb3c28%22%20d%3D%22M1952.64%200H211.383L163.888%20243.603H410.389L293.968%20834.925H48.9674L0%201080L1853.29%201079.89C2114.52%201079.89%202320.47%20904.19%202389.7%20638.69C2485.42%20271.8%202244.19%200%201952.64%200ZM687.834%20243.603H926.455L810.171%20834.925H571.414L687.834%20243.603Z%22/%3E%3C/svg%3E">
+<link rel="preload" href="../assets/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../assets/fonts/inter-latin-wght.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../assets/fonts/inter-cyrillic-wght.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+/* IDEA brand tokens shared by every page. Mirrors 14_CBT_PROTO/web/src/styles/tokens.css. */
+:root {
+  --bg: #e1dcd5;
+  --paper: #ede9e4;
+  --ink: #0a0a0a;
+  --muted: #5c574f;
+  --line: rgba(0, 0, 0, .12);
+  --frame: #0a0a0a;
+  --hover: rgba(0, 0, 0, .04);
+  --accent: #eb3c28;
+  --accent-press: #d23220;
+  --on-accent: #fff;
+  --dark: #00323c;
+  --on-dark: #fff;
+  --on-dark-2: rgba(237, 233, 228, .76);
+  --mark: #063b46;
+  --perf: rgba(0, 0, 0, .3);
+  --lift: drop-shadow(0 18px 22px rgba(74, 54, 38, .2)) drop-shadow(0 2px 3px rgba(74, 54, 38, .14));
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .29 0 0 0 0 .21 0 0 0 0 .15 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --r: 10px;
+  --notch: 11px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #00262d;
+    --paper: #0d4450;
+    --ink: #ece7e0;
+    --muted: #a3b5b8;
+    --line: rgba(225, 220, 213, .14);
+    --frame: rgba(236, 231, 224, .78);
+    --hover: rgba(255, 255, 255, .05);
+    --dark: #003f4b;
+    --mark: #074856;
+    --perf: rgba(236, 231, 224, .32);
+    --lift: drop-shadow(0 18px 26px rgba(0, 0, 0, .45)) drop-shadow(0 2px 3px rgba(0, 0, 0, .3));
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+[data-lang="uk"] [data-l="en"], [data-lang="en"] [data-l="uk"] { display: none !important; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: max(20px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
+  background: var(--grain), var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.5 "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv11", "ss03";
+  letter-spacing: -.011em;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.kicker { font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 44px; padding: 0 16px;
+  border: 1.5px solid var(--frame); border-radius: 8px; background: transparent;
+  color: var(--ink); font: 600 15px/1 inherit; letter-spacing: inherit; text-decoration: none;
+  cursor: pointer; transition: background-color .15s ease, transform .12s ease;
+}
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn:active { transform: scale(.985); background: var(--hover); }
+@media (hover: hover) { .btn:hover { background: var(--hover); } }
+.btn-accent { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.btn-accent:active { background: var(--accent-press); }
+@media (hover: hover) { .btn-accent:hover { background: var(--accent-press); } }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+/* Business card components: the pass, contact list, QR stub, footer. Tokens live in base.css. */
+.wrap { max-width: 420px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+
+/* ── The pass: dark head + perforated stub ───────────────────────── */
+.pass { filter: var(--lift); margin-bottom: 4px; }
+
+.pass-head {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 20px 22px 26px;
+  border-radius: var(--r) var(--r) 0 0;
+  background: var(--dark);
+  color: var(--on-dark);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+
+/* Oversized "ID" monogram, cropped top/bottom/right: reads as the brand's slanted strokes. */
+.pass-mark {
+  position: absolute;
+  z-index: -1;
+  left: 27%;
+  top: -17%;
+  height: 135%;
+  width: auto;
+  fill: var(--mark);
+  pointer-events: none;
+}
+
+.pass-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 52px; }
+.pass-logo { display: block; height: 19px; width: auto; fill: currentColor; }
+.pass-tag {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--on-dark-2);
+}
+.pass-tag i { width: 15px; height: 8px; background: var(--accent); transform: skewX(-11deg); }
+
+.pass-name {
+  margin: 0;
+  font-size: clamp(31px, 9.4vw, 38px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.pass-name > span > span { display: block; }
+.pass-role { margin: 12px 0 0; font-size: 15px; font-weight: 500; line-height: 1.35; color: var(--on-dark-2); }
+
+.pass-stub {
+  position: relative;
+  padding: 16px 22px 18px;
+  border-radius: 0 0 var(--r) var(--r);
+  background: var(--paper);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.pass-stub::before {
+  content: "";
+  position: absolute;
+  top: 0; left: calc(var(--notch) + 7px); right: calc(var(--notch) + 7px);
+  border-top: 1.5px dashed var(--perf);
+}
+
+.pass-stub > p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
+
+.fields { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px; margin: 0; }
+.fields dt, .row-k {
+  font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+}
+.fields dd { margin: 3px 0 0; font-size: 15px; font-weight: 600; line-height: 1.3; }
+
+.bio { margin: 2px 4px 0; font-size: 15px; line-height: 1.55; color: var(--muted); text-wrap: pretty; }
+
+/* ── Primary action ──────────────────────────────────────────────── */
+.save {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 58px; padding: 0 20px;
+  border-radius: var(--r);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 19px; font-weight: 700; letter-spacing: -.015em;
+  text-decoration: none;
+  box-shadow: 0 10px 20px -12px rgba(235, 60, 40, .75);
+  transition: transform .12s ease, background-color .15s ease;
+}
+.save svg { width: 22px; height: 22px; }
+.save:active { transform: scale(.985); background: var(--accent-press); }
+@media (hover: hover) { .save:hover { background: var(--accent-press); } }
+
+/* ── Contacts: the brand "frame" device ─────────────────────────── */
+.list { display: flex; flex-direction: column; border: 1.5px solid var(--frame); border-radius: var(--r); overflow: hidden; }
+.row {
+  display: grid; grid-template-columns: 22px minmax(0, 1fr) 18px; align-items: center; gap: 15px;
+  min-height: 66px; padding: 11px 16px;
+  color: inherit; text-decoration: none;
+  transition: background-color .15s ease;
+}
+.row + .row { border-top: 1px solid var(--line); }
+.row-ic svg { display: block; width: 22px; height: 22px; }
+.row-t { min-width: 0; }
+.row-k { display: block; margin-bottom: 1px; }
+.row-v { display: block; font-size: 16px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere; }
+.row-v.num { font-variant-numeric: tabular-nums; }
+.row-go { width: 18px; height: 18px; color: var(--muted); transition: transform .15s ease, color .15s ease; }
+.row:active { background: var(--hover); }
+@media (hover: hover) {
+  .row:hover { background: var(--hover); }
+  .row:hover .row-go { color: var(--accent); transform: translate(2px, -2px); }
+}
+
+/* ── Share stub with QR ─────────────────────────────────────────── */
+.share {
+  display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 18px; align-items: center;
+  padding: 14px 16px 14px 14px;
+  border-radius: var(--r);
+  background: var(--paper);
+}
+.share-qr { width: 124px; height: 124px; padding: 7px; border: 0; border-radius: 8px; background: #fff; cursor: zoom-in; }
+.share-qr svg { display: block; width: 100%; height: 100%; }
+.share-t p { margin: 0 0 12px; font-size: 13.5px; line-height: 1.45; color: var(--muted); text-wrap: pretty; }
+.share-t b { display: block; margin-bottom: 3px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.share-btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px;
+  border: 1.5px solid var(--frame); border-radius: 8px; background: transparent;
+  color: var(--ink); font: 600 14px/1 inherit; letter-spacing: inherit; cursor: pointer;
+}
+.share-btn svg { width: 17px; height: 17px; }
+
+.zoom { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 24px; background: #fff; cursor: zoom-out; }
+.zoom svg { width: min(86vw, 80vh, 520px); height: auto; }
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.foot { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 14px; text-align: center; }
+.foot-brand { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; color: inherit; text-decoration: none; }
+.foot-brand svg { height: 12px; width: auto; fill: var(--accent); }
+.foot-tag { margin: -6px 0 0; font-size: 12.5px; color: var(--muted); }
+.lang { display: inline-flex; padding: 2px; border: 1.5px solid var(--frame); border-radius: 999px; }
+.lang button {
+  padding: 7px 13px; border: 0; border-radius: 999px; background: transparent;
+  color: var(--muted); font: 600 11.5px/1 inherit; letter-spacing: .1em; cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pass { animation: rise .7s cubic-bezier(.2, .75, .2, 1) both; }
+  .wrap > :not(.pass) { animation: fade .55s ease both; }
+  .wrap > :nth-child(2) { animation-delay: .12s; }
+  .wrap > :nth-child(3) { animation-delay: .17s; }
+  .wrap > :nth-child(4) { animation-delay: .22s; }
+  .wrap > :nth-child(5) { animation-delay: .27s; }
+  .wrap > :nth-child(6) { animation-delay: .32s; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(16px) rotate(-.6deg); } }
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } }
+
+@media (min-width: 720px) {
+  body { padding-top: 56px; }
+}
+/* Interactive guide. Reuses base.css tokens and card.css footer/lang components. */
+.g-wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+.g-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 2px 0; }
+.g-logo { display: block; color: var(--ink); }
+.g-logo svg { display: block; height: 22px; width: auto; fill: currentColor; }
+
+.g-hero { display: flex; flex-direction: column; gap: 14px; }
+.g-hero h1 { margin: 12px 0 0; font-size: clamp(32px, 9vw, 44px); font-weight: 700; line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; }
+.g-lead { margin: -2px 0 4px; font-size: 16px; line-height: 1.5; color: var(--muted); text-wrap: pretty; }
+
+.g-pick { display: flex; flex-direction: column; gap: 6px; }
+.g-pick select {
+  appearance: none; -webkit-appearance: none;
+  min-height: 50px; padding: 0 44px 0 14px;
+  border: 1.5px solid var(--frame); border-radius: 8px;
+  background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%235c574f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6l6 -6'/%3E%3C/svg%3E") no-repeat right 12px center / 20px;
+  color: var(--ink); font: 600 16px/1 inherit; letter-spacing: inherit;
+}
+
+.g-me {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 16px 16px 16px 18px; border-radius: var(--r);
+  background: var(--dark); color: var(--on-dark);
+}
+.g-me-t { display: flex; flex-direction: column; min-width: 0; }
+.g-me-t b { font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
+.g-me-t span { font-size: 14px; color: var(--on-dark-2); }
+.g-me .btn { flex: none; border-color: rgba(255, 255, 255, .55); color: var(--on-dark); }
+.g-me .btn:hover, .g-me .btn:active { background: rgba(255, 255, 255, .08); }
+
+.g-os { display: grid; grid-template-columns: 1fr 1fr; padding: 3px; border: 1.5px solid var(--frame); border-radius: 10px; }
+.g-os button {
+  min-height: 42px; border: 0; border-radius: 7px; background: transparent;
+  color: var(--muted); font: 600 15px/1 inherit; letter-spacing: inherit; cursor: pointer;
+}
+.g-os button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+
+.g-progress { display: flex; align-items: center; gap: 12px; font-size: 13.5px; color: var(--muted); }
+.g-progress b { color: var(--ink); }
+.g-bar { flex: 1; height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.g-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--accent); transition: width .4s cubic-bezier(.2, .75, .2, 1); }
+
+.g-handoff { display: flex; align-items: center; gap: 18px; padding: 14px; border-radius: var(--r); background: var(--paper); }
+.g-handoff-qr { flex: none; width: 116px; height: 116px; padding: 6px; border-radius: 8px; background: #fff; }
+.g-handoff-qr svg { display: block; width: 100%; height: 100%; }
+.g-handoff b { display: block; font-size: 16px; }
+.g-handoff p { margin: 4px 0 0; font-size: 14px; line-height: 1.45; color: var(--muted); }
+
+/* ── Steps ─────────────────────────────────────────────────────── */
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.step { border: 1.5px solid var(--frame); border-radius: var(--r); background: transparent; overflow: hidden; }
+.step.open { background: var(--paper); }
+.step-h {
+  display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  width: 100%; min-height: 62px; padding: 12px 16px; border: 0; background: transparent;
+  color: inherit; font: inherit; letter-spacing: inherit; text-align: left; cursor: pointer;
+}
+.step-n {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  border: 1.5px solid var(--frame); font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+.step-n svg { display: none; width: 18px; height: 18px; }
+.step.open .step-n { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.step.done .step-n { border-color: var(--dark); background: var(--dark); color: #fff; }
+.step.done .step-n span { display: none; }
+.step.done .step-n svg { display: block; }
+.step-t { font-size: 17px; font-weight: 650; letter-spacing: -.015em; }
+.step.done:not(.open) .step-t { color: var(--muted); }
+.step-m { font-size: 12.5px; color: var(--muted); }
+.step-b { display: none; flex-direction: column; align-items: flex-start; gap: 14px; padding: 0 16px 18px 64px; }
+.step.open .step-b { display: flex; animation: fade .35s ease both; }
+.step-b > p { margin: 0; line-height: 1.55; text-wrap: pretty; }
+.step-done { margin-top: 4px; }
+
+.howto { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 9px; line-height: 1.5; }
+.howto li::marker { font-weight: 700; color: var(--accent); }
+.ico { display: inline-flex; vertical-align: -3px; }
+.ico svg { width: 18px; height: 18px; }
+
+.note { font-size: 14px; color: var(--muted); }
+.note a, .foot-tag a, .step-b a:not(.btn), .link { color: inherit; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; text-decoration-color: var(--accent); }
+.link { padding: 0; border: 0; background: none; font: inherit; letter-spacing: inherit; cursor: pointer; }
+
+.g-cardlang { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; }
+
+.kv { width: 100%; margin: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.kv > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "k a" "v a"; align-items: center; gap: 1px 12px; padding: 10px 10px 10px 14px; }
+.kv > div + div { border-top: 1px solid var(--line); }
+.kv dt { grid-area: k; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.kv dd { grid-area: v; margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.kv .copy, .kv-hint { grid-area: a; }
+.kv-hint { font-size: 12.5px; color: var(--muted); padding-right: 6px; }
+.swatch { display: inline-block; width: 12px; height: 12px; margin-right: 7px; border-radius: 3px; background: #00323c; vertical-align: -1px; }
+.copy {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 11px;
+  border: 1.5px solid var(--frame); border-radius: 7px; background: transparent;
+  color: var(--ink); font: 600 13px/1 inherit; letter-spacing: inherit; cursor: pointer;
+}
+.copy svg { width: 15px; height: 15px; }
+.copy.ok { border-color: var(--dark); background: var(--dark); color: #fff; }
+
+.g-wallet { margin: 12px 0 4px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.g-wallet img { width: 150px; height: auto; border-radius: 10px; box-shadow: 0 10px 24px -14px rgba(0, 0, 0, .6); background: var(--dark); }
+
+.alt { width: 100%; border-top: 1px solid var(--line); padding-top: 12px; }
+.alt summary { cursor: pointer; font-weight: 600; }
+.alt[open] summary { margin-bottom: 10px; }
+.alt p { margin: 0 0 10px; line-height: 1.5; }
+
+.tips { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; line-height: 1.5; }
+
+.g-finish { padding: 18px 20px; border-radius: var(--r); background: var(--dark); color: var(--on-dark); }
+.g-finish b { font-size: 18px; }
+.g-finish p { margin: 6px 0 0; color: var(--on-dark-2); line-height: 1.5; }
+
+[data-os="ios"] [data-only="android"], [data-os="android"] [data-only="ios"] { display: none !important; }
+
+@media (max-width: 420px) {
+  .step-b { padding-left: 16px; }
+}
+@media (min-width: 720px) {
+  body.guide { padding-top: 40px; }
+}
+</style>
+</head>
+<body class="guide">
+<main class="g-wrap">
+<header class="g-head">
+<a class="g-logo" href="https://ideatravel.solutions" target="_blank" rel="noopener" aria-label="IDEA Travel Solutions"><svg class="pass-logo" viewBox="0 0 4141 1080" role="img" aria-label="IDEA"><path d="M4050.61 0H3451.66L3055.47 836.397H2493.71L2530.52 654.043H3032.86L3075.76 424.321H2573.31L2610.12 243.575H3189.11L3236.63 0H2378.89L2338.45 206.516C2256.27 83.2007 2115.98 0 1952.95 0H211.429L163.93 243.603H410.452L294.021 834.925H48.999L0 1080L1853.59 1079.89C1979.37 1079.89 2096.68 1037.05 2190.15 964.021L2167.46 1079.89H3238.87L3390.39 753.606H3827.02L3851.56 1079.89H4141L4050.61 0ZM687.949 243.603H926.591L810.296 834.925H571.518L687.949 243.603ZM3502.27 510.112L3707.48 69.0203H3776.55L3808.67 510.112H3502.27Z"/></svg></a>
+<span class="kicker">Інструкція</span>
+</header>
+
+<section class="g-hero">
+<h1>Ваша електронна візитка</h1>
+<p class="g-lead">Чотири кроки, приблизно п'ять хвилин. Робіть з телефона, з якого показуватимете візитку.</p>
+<label class="g-pick"><span class="kicker">Чия візитка</span><select id="person"><option value="home">Денис Гоцало</option><option value="alyona-shalahinova">Альона Шалагінова</option></select></label>
+<div class="g-me">
+<div class="g-me-t"><b data-bind="name"></b><span data-bind="title"></span></div>
+<a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg></a>
+</div>
+<div class="g-os" role="tablist" aria-label="Телефон">
+<button type="button" role="tab" data-os="ios">iPhone</button>
+<button type="button" role="tab" data-os="android">Android</button>
+</div>
+<div class="g-progress"><div class="g-bar"><i></i></div><span><b data-bind="done">0</b> з 4 готово</span></div>
+</section>
+
+<aside class="g-handoff" hidden>
+<div class="g-handoff-qr" data-qr="guideQr"></div>
+<div><b>Зручніше з телефона</b><p>Наведіть камеру телефона на код: інструкція відкриється вже з вашими даними.</p></div>
+</aside>
+
+<ol class="steps">
+<li class="step" data-step="check">
+<button class="step-h" type="button"><span class="step-n"><span>1</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg></span><span class="step-t">Перевірте свою візитку</span><span class="step-m">1 хв</span></button>
+<div class="step-b">
+<p>Відкрийте сторінку й перевірте ім'я, посаду, телефон і пошту. Перемикач UA / EN унизу сторінки показує англійську версію: її бачать іноземні партнери.</p>
+<a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити мою візитку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg></a>
+<p class="note">Щось не так? <a data-contact href="https://t.me/den8eight" target="_blank" rel="noopener">Напишіть Денису</a>: виправлення з'явиться за хвилину, а QR-код не зміниться.</p>
+<button class="btn btn-accent step-done" type="button">Все правильно, далі</button>
+</div>
+</li>
+
+<li class="step" data-step="home">
+<button class="step-h" type="button"><span class="step-n"><span>2</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg></span><span class="step-t">Закріпіть на головному екрані</span><span class="step-m">1 хв</span></button>
+<div class="step-b">
+<ol class="howto" data-only="ios">
+<li>Відкрийте свою візитку в <b>Safari</b> кнопкою нижче.</li>
+<li>Торкніться <b>«Поділитися»</b> <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4 -4l4 4"/><path d="M7 11h-1a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-6a2 2 0 0 0 -2 -2h-1"/></svg></span> на панелі Safari.</li>
+<li>Прокрутіть меню й виберіть <b>«На початковий екран»</b>.</li>
+<li>Натисніть <b>«Додати»</b>.</li>
+</ol>
+<ol class="howto" data-only="android">
+<li>Відкрийте свою візитку в <b>Chrome</b> кнопкою нижче.</li>
+<li>Торкніться <b>⋮</b> у правому верхньому куті.</li>
+<li>Виберіть <b>«Додати на головний екран»</b> або <b>«Установити застосунок»</b>.</li>
+<li>Підтвердьте <b>«Додати»</b>.</li>
+</ol>
+<a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити візитку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg></a>
+<p class="note">На екрані з'явиться іконка IDEA з підписом «Візитка IDEA». Тепер візитка відкривається одним дотиком.</p>
+<button class="btn btn-accent step-done" type="button">Готово, далі</button>
+</div>
+</li>
+
+<li class="step" data-step="wallet">
+<button class="step-h" type="button"><span class="step-n"><span>3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg></span><span class="step-t">Додайте в гаманець</span><span class="step-m">2 хв</span></button>
+<div class="step-b">
+<div class="g-cardlang"><span class="kicker">Мова тексту на картці</span><div class="lang" role="group" aria-label="Мова картки"><button type="button" data-card-lang="uk">UA</button><button type="button" data-card-lang="en">EN</button></div></div>
+
+<div data-only="ios">
+<p>Apple Wallet приймає лише підписані картки. Сервіс WalletWallet підписує їх безкоштовно й без реєстрації.</p>
+<ol class="howto">
+<li>Відкрийте <a href="https://walletwallet.alen.ro" target="_blank" rel="noopener"><b>WalletWallet</b></a> у Safari на цьому iPhone і виберіть вкладку <b>Apple Wallet</b>.</li>
+<li>Заповніть поля: натискайте «Копіювати» і вставляйте.</li>
+</ol>
+<dl class="kv">
+<div><dt>Barcode Data</dt><dd data-bind="url"></dd><button class="copy" type="button" data-copy="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Output Format</dt><dd>QR Code</dd><span class="kv-hint">у списку</span></div>
+<div><dt>Pass Title</dt><dd>IDEA Travel Solutions</dd><button class="copy" type="button" data-copy="company"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Label</dt><dd data-bind="cardName"></dd><button class="copy" type="button" data-copy="cardName"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Value</dt><dd data-bind="cardTitle"></dd><button class="copy" type="button" data-copy="cardTitle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Card Color</dt><dd><i class="swatch"></i>#00323C</dd><button class="copy" type="button" data-copy="color"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+</dl>
+<ol class="howto" start="3">
+<li>Необов'язково: <button class="link" type="button" data-download="logo">завантажте логотип IDEA</button> і додайте його в <b>Pass Logo</b>.</li>
+<li>Натисніть <b>Download .pkpass</b>, а потім <b>«Додати»</b> у вікні Apple Wallet.</li>
+</ol>
+</div>
+
+<div data-only="android">
+<ol class="howto">
+<li>Збережіть фірмову картку з вашим QR-кодом:
+<figure class="g-wallet"><img alt="Картка для гаманця" data-wallet-preview><button class="btn btn-accent" type="button" data-download="wallet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/></svg> Завантажити картку</button></figure>
+</li>
+<li>Відкрийте <b>Google Гаманець</b> і торкніться <b>«Додати в Google Гаманець»</b> → <b>«Фотографія»</b>.</li>
+<li>Виберіть завантажену картинку (папка «Завантаження»), у назві напишіть <b>Візитка IDEA</b> і натисніть <b>«Додати»</b>.</li>
+</ol>
+<details class="alt">
+<summary>Немає пункту «Фотографія»?</summary>
+<p>Відкрийте <a href="https://walletwallet.alen.ro" target="_blank" rel="noopener"><b>WalletWallet</b></a>, виберіть вкладку <b>Google Wallet</b> і заповніть поля:</p>
+<dl class="kv">
+<div><dt>Barcode Data</dt><dd data-bind="url"></dd><button class="copy" type="button" data-copy="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Output Format</dt><dd>QR Code</dd><span class="kv-hint">у списку</span></div>
+<div><dt>Pass Title</dt><dd>IDEA Travel Solutions</dd><button class="copy" type="button" data-copy="company"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Label</dt><dd data-bind="cardName"></dd><button class="copy" type="button" data-copy="cardName"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Value</dt><dd data-bind="cardTitle"></dd><button class="copy" type="button" data-copy="cardTitle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Card Color</dt><dd><i class="swatch"></i>#00323C</dd><button class="copy" type="button" data-copy="color"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+</dl>
+<p>Потім натисніть <b>Add to Google Wallet</b>.</p>
+</details>
+</div>
+
+<p class="note">Як показувати: відкрийте картку в гаманці, людина сканує QR камерою й одразу бачить вашу візитку.</p>
+<button class="btn btn-accent step-done" type="button">Готово, далі</button>
+</div>
+</li>
+
+<li class="step" data-step="share">
+<button class="step-h" type="button"><span class="step-n"><span>4</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg></span><span class="step-t">Діліться посиланням</span><span class="step-m">1 хв</span></button>
+<div class="step-b">
+<dl class="kv">
+<div><dt>Ваше посилання</dt><dd data-bind="url"></dd><button class="copy" type="button" data-copy="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+<div><dt>Англійською</dt><dd data-bind="urlEn"></dd><button class="copy" type="button" data-copy="urlEn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/></svg><span>Копіювати</span></button></div>
+</dl>
+<ul class="tips">
+<li><b>При зустрічі.</b> Відкрийте візитку й торкніться QR: він розгорнеться на весь екран.</li>
+<li><b>У листах.</b> Додайте посилання в підпис пошти.</li>
+<li><b>У профілях.</b> Опис у Telegram, у LinkedIn: Contact info → Website.</li>
+<li><b>Іноземним партнерам</b> надсилайте англійське посилання.</li>
+</ul>
+<button class="btn btn-accent step-done" type="button">Готово</button>
+</div>
+</li>
+</ol>
+
+<section class="g-finish" hidden>
+<b>Усе готово</b>
+<p>Візитка на головному екрані й у гаманці. Якщо дані зміняться, картки переробляти не треба: QR веде на сторінку, а сторінка оновлюється.</p>
+</section>
+
+<footer class="foot">
+<a class="foot-brand" href="https://ideatravel.solutions" target="_blank" rel="noopener"><svg class="foot-sign" viewBox="0 0 2411 1080" aria-hidden="true"><path d="M1952.64 0H211.383L163.888 243.603H410.389L293.968 834.925H48.9674L0 1080L1853.29 1079.89C2114.52 1079.89 2320.47 904.19 2389.7 638.69C2485.42 271.8 2244.19 0 1952.64 0ZM687.834 243.603H926.455L810.171 834.925H571.414L687.834 243.603Z"/></svg><span>IDEA Travel Solutions</span></a>
+<p class="foot-tag">Змінилися посада чи телефон? <a href="https://t.me/den8eight" target="_blank" rel="noopener">Напишіть Денису</a>.</p>
+</footer>
+</main>
+<script type="application/json" id="guide-data">{"company":"IDEA Travel Solutions","brand":{"logo":"M4050.61 0H3451.66L3055.47 836.397H2493.71L2530.52 654.043H3032.86L3075.76 424.321H2573.31L2610.12 243.575H3189.11L3236.63 0H2378.89L2338.45 206.516C2256.27 83.2007 2115.98 0 1952.95 0H211.429L163.93 243.603H410.452L294.021 834.925H48.999L0 1080L1853.59 1079.89C1979.37 1079.89 2096.68 1037.05 2190.15 964.021L2167.46 1079.89H3238.87L3390.39 753.606H3827.02L3851.56 1079.89H4141L4050.61 0ZM687.949 243.603H926.591L810.296 834.925H571.518L687.949 243.603ZM3502.27 510.112L3707.48 69.0203H3776.55L3808.67 510.112H3502.27Z","sign":"M1952.64 0H211.383L163.888 243.603H410.389L293.968 834.925H48.9674L0 1080L1853.29 1079.89C2114.52 1079.89 2320.47 904.19 2389.7 638.69C2485.42 271.8 2244.19 0 1952.64 0ZM687.834 243.603H926.455L810.171 834.925H571.414L687.834 243.603Z"},"people":[{"id":"home","url":"https://idea-denyshotsalo.github.io/card/","first":{"uk":"Денис","en":"Denys"},"last":{"uk":"Гоцало","en":"Hotsalo"},"title":{"uk":"Junior AI/ML Engineer","en":"Junior AI/ML Engineer"},"qr":{"n":37,"d":"M4 4h7v1h-7zM17 4h2v1h-2zM21 4h2v1h-2zM26 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM14 5h2v1h-2zM17 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h2v1h-2zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM23 6h1v1h-1zM26 6h1v1h-1zM28 6h3v1h-3zM32 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h4v1h-4zM17 7h1v1h-1zM19 7h3v1h-3zM26 7h1v1h-1zM28 7h3v1h-3zM32 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM21 8h4v1h-4zM26 8h1v1h-1zM28 8h3v1h-3zM32 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM20 9h1v1h-1zM26 9h1v1h-1zM32 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h7v1h-7zM12 11h1v1h-1zM14 11h3v1h-3zM18 11h3v1h-3zM22 11h1v1h-1zM24 11h1v1h-1zM4 12h1v1h-1zM10 12h1v1h-1zM12 12h3v1h-3zM17 12h2v1h-2zM21 12h1v1h-1zM24 12h3v1h-3zM29 12h3v1h-3zM6 13h3v1h-3zM15 13h2v1h-2zM19 13h1v1h-1zM21 13h3v1h-3zM28 13h1v1h-1zM30 13h2v1h-2zM4 14h1v1h-1zM6 14h3v1h-3zM10 14h1v1h-1zM17 14h1v1h-1zM19 14h3v1h-3zM24 14h1v1h-1zM26 14h3v1h-3zM4 15h1v1h-1zM6 15h1v1h-1zM13 15h1v1h-1zM15 15h2v1h-2zM23 15h3v1h-3zM28 15h2v1h-2zM4 16h3v1h-3zM8 16h4v1h-4zM14 16h1v1h-1zM20 16h1v1h-1zM22 16h1v1h-1zM24 16h1v1h-1zM26 16h2v1h-2zM32 16h1v1h-1zM5 17h1v1h-1zM8 17h2v1h-2zM11 17h1v1h-1zM13 17h1v1h-1zM19 17h6v1h-6zM26 17h3v1h-3zM31 17h2v1h-2zM5 18h1v1h-1zM9 18h2v1h-2zM13 18h2v1h-2zM16 18h1v1h-1zM18 18h2v1h-2zM21 18h1v1h-1zM27 18h4v1h-4zM5 19h1v1h-1zM11 19h1v1h-1zM14 19h2v1h-2zM18 19h2v1h-2zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h3v1h-3zM30 19h1v1h-1zM32 19h1v1h-1zM5 20h6v1h-6zM12 20h1v1h-1zM15 20h1v1h-1zM17 20h1v1h-1zM21 20h1v1h-1zM23 20h1v1h-1zM29 20h2v1h-2zM4 21h2v1h-2zM8 21h1v1h-1zM14 21h2v1h-2zM17 21h1v1h-1zM19 21h1v1h-1zM22 21h3v1h-3zM26 21h3v1h-3zM30 21h3v1h-3zM4 22h2v1h-2zM7 22h2v1h-2zM10 22h1v1h-1zM13 22h2v1h-2zM16 22h1v1h-1zM19 22h2v1h-2zM23 22h1v1h-1zM26 22h4v1h-4zM32 22h1v1h-1zM4 23h1v1h-1zM8 23h1v1h-1zM12 23h4v1h-4zM18 23h2v1h-2zM23 23h1v1h-1zM25 23h1v1h-1zM27 23h2v1h-2zM4 24h1v1h-1zM6 24h7v1h-7zM16 24h1v1h-1zM19 24h1v1h-1zM21 24h1v1h-1zM24 24h5v1h-5zM30 24h3v1h-3zM12 25h1v1h-1zM15 25h2v1h-2zM18 25h2v1h-2zM21 25h4v1h-4zM28 25h2v1h-2zM4 26h7v1h-7zM16 26h1v1h-1zM19 26h2v1h-2zM22 26h3v1h-3zM26 26h1v1h-1zM28 26h3v1h-3zM4 27h1v1h-1zM10 27h1v1h-1zM14 27h1v1h-1zM16 27h1v1h-1zM20 27h1v1h-1zM23 27h2v1h-2zM28 27h1v1h-1zM31 27h1v1h-1zM4 28h1v1h-1zM6 28h3v1h-3zM10 28h1v1h-1zM13 28h1v1h-1zM15 28h1v1h-1zM17 28h3v1h-3zM23 28h7v1h-7zM31 28h1v1h-1zM4 29h1v1h-1zM6 29h3v1h-3zM10 29h1v1h-1zM13 29h1v1h-1zM15 29h2v1h-2zM19 29h2v1h-2zM23 29h1v1h-1zM25 29h1v1h-1zM29 29h2v1h-2zM32 29h1v1h-1zM4 30h1v1h-1zM6 30h3v1h-3zM10 30h1v1h-1zM15 30h2v1h-2zM18 30h2v1h-2zM24 30h8v1h-8zM4 31h1v1h-1zM10 31h1v1h-1zM14 31h1v1h-1zM16 31h2v1h-2zM20 31h1v1h-1zM22 31h2v1h-2zM25 31h1v1h-1zM27 31h4v1h-4zM32 31h1v1h-1zM4 32h7v1h-7zM12 32h2v1h-2zM15 32h3v1h-3zM21 32h1v1h-1zM23 32h1v1h-1zM25 32h2v1h-2zM30 32h1v1h-1z"},"guideQr":{"n":41,"d":"M4 4h7v1h-7zM13 4h3v1h-3zM18 4h2v1h-2zM21 4h1v1h-1zM23 4h1v1h-1zM26 4h2v1h-2zM30 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h3v1h-3zM19 5h4v1h-4zM25 5h1v1h-1zM27 5h2v1h-2zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM13 6h2v1h-2zM18 6h1v1h-1zM21 6h1v1h-1zM24 6h1v1h-1zM26 6h2v1h-2zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM22 7h2v1h-2zM26 7h1v1h-1zM30 7h1v1h-1zM32 7h3v1h-3zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM27 8h1v1h-1zM30 8h1v1h-1zM32 8h3v1h-3zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h3v1h-3zM17 9h2v1h-2zM21 9h1v1h-1zM23 9h1v1h-1zM25 9h2v1h-2zM28 9h1v1h-1zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h7v1h-7zM14 11h2v1h-2zM21 11h7v1h-7zM4 12h1v1h-1zM7 12h1v1h-1zM9 12h2v1h-2zM12 12h1v1h-1zM14 12h1v1h-1zM16 12h4v1h-4zM23 12h3v1h-3zM28 12h2v1h-2zM31 12h1v1h-1zM6 13h4v1h-4zM11 13h1v1h-1zM15 13h1v1h-1zM18 13h1v1h-1zM20 13h2v1h-2zM24 13h2v1h-2zM29 13h3v1h-3zM35 13h2v1h-2zM6 14h3v1h-3zM10 14h1v1h-1zM13 14h2v1h-2zM16 14h1v1h-1zM20 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM29 14h4v1h-4zM34 14h1v1h-1zM36 14h1v1h-1zM5 15h1v1h-1zM7 15h2v1h-2zM13 15h1v1h-1zM16 15h1v1h-1zM18 15h2v1h-2zM22 15h1v1h-1zM25 15h2v1h-2zM29 15h1v1h-1zM32 15h2v1h-2zM35 15h1v1h-1zM5 16h3v1h-3zM9 16h2v1h-2zM12 16h2v1h-2zM16 16h1v1h-1zM19 16h1v1h-1zM22 16h5v1h-5zM28 16h4v1h-4zM33 16h1v1h-1zM35 16h1v1h-1zM4 17h1v1h-1zM7 17h3v1h-3zM12 17h1v1h-1zM14 17h1v1h-1zM19 17h3v1h-3zM23 17h4v1h-4zM28 17h1v1h-1zM30 17h1v1h-1zM32 17h5v1h-5zM4 18h1v1h-1zM7 18h4v1h-4zM12 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM21 18h2v1h-2zM27 18h1v1h-1zM29 18h4v1h-4zM34 18h2v1h-2zM4 19h1v1h-1zM7 19h1v1h-1zM11 19h1v1h-1zM13 19h2v1h-2zM19 19h1v1h-1zM21 19h3v1h-3zM25 19h4v1h-4zM30 19h2v1h-2zM35 19h1v1h-1zM4 20h9v1h-9zM16 20h3v1h-3zM21 20h1v1h-1zM24 20h3v1h-3zM28 20h1v1h-1zM30 20h1v1h-1zM32 20h1v1h-1zM35 20h1v1h-1zM5 21h1v1h-1zM7 21h1v1h-1zM9 21h1v1h-1zM11 21h2v1h-2zM15 21h1v1h-1zM20 21h1v1h-1zM27 21h3v1h-3zM31 21h1v1h-1zM33 21h1v1h-1zM35 21h1v1h-1zM4 22h1v1h-1zM6 22h2v1h-2zM9 22h2v1h-2zM12 22h3v1h-3zM17 22h2v1h-2zM22 22h1v1h-1zM24 22h2v1h-2zM29 22h2v1h-2zM34 22h1v1h-1zM36 22h1v1h-1zM4 23h3v1h-3zM9 23h1v1h-1zM13 23h1v1h-1zM17 23h2v1h-2zM21 23h1v1h-1zM25 23h1v1h-1zM27 23h2v1h-2zM31 23h1v1h-1zM36 23h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM16 24h2v1h-2zM20 24h4v1h-4zM25 24h3v1h-3zM5 25h3v1h-3zM9 25h1v1h-1zM12 25h1v1h-1zM14 25h1v1h-1zM17 25h1v1h-1zM19 25h2v1h-2zM24 25h1v1h-1zM26 25h1v1h-1zM28 25h3v1h-3zM34 25h3v1h-3zM4 26h4v1h-4zM10 26h2v1h-2zM16 26h1v1h-1zM18 26h2v1h-2zM23 26h1v1h-1zM25 26h2v1h-2zM29 26h1v1h-1zM31 26h3v1h-3zM36 26h1v1h-1zM5 27h1v1h-1zM7 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM16 27h1v1h-1zM20 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h2v1h-2zM30 27h2v1h-2zM35 27h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM8 28h6v1h-6zM17 28h1v1h-1zM19 28h3v1h-3zM23 28h3v1h-3zM28 28h5v1h-5zM35 28h2v1h-2zM12 29h5v1h-5zM23 29h2v1h-2zM27 29h2v1h-2zM32 29h2v1h-2zM36 29h1v1h-1zM4 30h7v1h-7zM18 30h1v1h-1zM20 30h1v1h-1zM24 30h2v1h-2zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h4v1h-4zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM14 31h1v1h-1zM16 31h2v1h-2zM20 31h1v1h-1zM25 31h2v1h-2zM28 31h1v1h-1zM32 31h1v1h-1zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM14 32h1v1h-1zM18 32h3v1h-3zM23 32h1v1h-1zM25 32h2v1h-2zM28 32h6v1h-6zM36 32h1v1h-1zM4 33h1v1h-1zM6 33h3v1h-3zM10 33h1v1h-1zM12 33h1v1h-1zM15 33h2v1h-2zM19 33h1v1h-1zM21 33h1v1h-1zM24 33h1v1h-1zM26 33h1v1h-1zM30 33h1v1h-1zM32 33h3v1h-3zM4 34h1v1h-1zM6 34h3v1h-3zM10 34h1v1h-1zM14 34h1v1h-1zM18 34h1v1h-1zM21 34h1v1h-1zM24 34h1v1h-1zM26 34h3v1h-3zM32 34h2v1h-2zM36 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM16 35h1v1h-1zM18 35h5v1h-5zM25 35h1v1h-1zM27 35h4v1h-4zM4 36h7v1h-7zM12 36h3v1h-3zM20 36h1v1h-1zM22 36h1v1h-1zM24 36h2v1h-2zM28 36h3v1h-3zM32 36h2v1h-2zM35 36h1v1h-1z"}},{"id":"alyona-shalahinova","url":"https://idea-denyshotsalo.github.io/card/alyona-shalahinova/","first":{"uk":"Альона","en":"Alyona"},"last":{"uk":"Шалагінова","en":"Shalahinova"},"title":{"uk":"Менеджер з розвитку бізнесу","en":"Business Development Manager"},"qr":{"n":41,"d":"M4 4h7v1h-7zM16 4h1v1h-1zM20 4h1v1h-1zM23 4h2v1h-2zM27 4h1v1h-1zM30 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM26 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h1v1h-1zM19 6h2v1h-2zM24 6h3v1h-3zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h4v1h-4zM19 7h1v1h-1zM21 7h1v1h-1zM26 7h3v1h-3zM30 7h1v1h-1zM32 7h3v1h-3zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM16 8h2v1h-2zM19 8h1v1h-1zM22 8h4v1h-4zM27 8h1v1h-1zM30 8h1v1h-1zM32 8h3v1h-3zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM19 9h4v1h-4zM25 9h2v1h-2zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h7v1h-7zM12 11h1v1h-1zM14 11h3v1h-3zM20 11h1v1h-1zM24 11h2v1h-2zM28 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM15 12h4v1h-4zM20 12h2v1h-2zM23 12h2v1h-2zM26 12h3v1h-3zM30 12h5v1h-5zM4 13h2v1h-2zM9 13h1v1h-1zM13 13h1v1h-1zM15 13h1v1h-1zM17 13h2v1h-2zM20 13h5v1h-5zM27 13h2v1h-2zM30 13h2v1h-2zM33 13h2v1h-2zM36 13h1v1h-1zM6 14h2v1h-2zM10 14h4v1h-4zM15 14h1v1h-1zM17 14h4v1h-4zM22 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM32 14h1v1h-1zM34 14h2v1h-2zM5 15h1v1h-1zM8 15h2v1h-2zM11 15h2v1h-2zM15 15h3v1h-3zM19 15h1v1h-1zM22 15h4v1h-4zM28 15h1v1h-1zM30 15h1v1h-1zM32 15h3v1h-3zM36 15h1v1h-1zM6 16h2v1h-2zM9 16h2v1h-2zM14 16h2v1h-2zM18 16h1v1h-1zM21 16h1v1h-1zM23 16h1v1h-1zM26 16h1v1h-1zM29 16h1v1h-1zM32 16h2v1h-2zM35 16h2v1h-2zM4 17h2v1h-2zM8 17h1v1h-1zM12 17h4v1h-4zM17 17h1v1h-1zM22 17h4v1h-4zM27 17h1v1h-1zM30 17h1v1h-1zM35 17h2v1h-2zM4 18h1v1h-1zM6 18h1v1h-1zM8 18h4v1h-4zM13 18h1v1h-1zM15 18h2v1h-2zM19 18h2v1h-2zM22 18h1v1h-1zM24 18h3v1h-3zM28 18h3v1h-3zM33 18h3v1h-3zM7 19h1v1h-1zM12 19h3v1h-3zM19 19h1v1h-1zM25 19h2v1h-2zM29 19h3v1h-3zM33 19h2v1h-2zM4 20h1v1h-1zM9 20h2v1h-2zM12 20h1v1h-1zM14 20h2v1h-2zM18 20h2v1h-2zM21 20h1v1h-1zM26 20h4v1h-4zM31 20h2v1h-2zM36 20h1v1h-1zM5 21h2v1h-2zM8 21h2v1h-2zM11 21h1v1h-1zM13 21h6v1h-6zM20 21h6v1h-6zM27 21h1v1h-1zM30 21h2v1h-2zM33 21h2v1h-2zM36 21h1v1h-1zM5 22h6v1h-6zM14 22h3v1h-3zM18 22h3v1h-3zM22 22h1v1h-1zM25 22h1v1h-1zM29 22h1v1h-1zM31 22h2v1h-2zM34 22h1v1h-1zM4 23h1v1h-1zM6 23h2v1h-2zM9 23h1v1h-1zM13 23h1v1h-1zM16 23h1v1h-1zM20 23h1v1h-1zM25 23h2v1h-2zM31 23h4v1h-4zM36 23h1v1h-1zM7 24h4v1h-4zM12 24h1v1h-1zM14 24h1v1h-1zM17 24h3v1h-3zM21 24h1v1h-1zM23 24h1v1h-1zM28 24h1v1h-1zM31 24h3v1h-3zM4 25h1v1h-1zM8 25h1v1h-1zM13 25h4v1h-4zM20 25h5v1h-5zM27 25h1v1h-1zM30 25h1v1h-1zM33 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM10 26h2v1h-2zM15 26h1v1h-1zM17 26h3v1h-3zM26 26h1v1h-1zM30 26h1v1h-1zM32 26h2v1h-2zM35 26h1v1h-1zM4 27h1v1h-1zM6 27h4v1h-4zM11 27h1v1h-1zM14 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM25 27h1v1h-1zM28 27h2v1h-2zM31 27h1v1h-1zM34 27h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM10 28h2v1h-2zM16 28h1v1h-1zM18 28h2v1h-2zM21 28h1v1h-1zM23 28h1v1h-1zM26 28h1v1h-1zM28 28h5v1h-5zM35 28h2v1h-2zM12 29h2v1h-2zM15 29h1v1h-1zM17 29h1v1h-1zM20 29h5v1h-5zM26 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM36 29h1v1h-1zM4 30h7v1h-7zM13 30h2v1h-2zM16 30h4v1h-4zM21 30h1v1h-1zM24 30h5v1h-5zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h2v1h-2zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h3v1h-3zM20 31h1v1h-1zM22 31h2v1h-2zM25 31h4v1h-4zM32 31h4v1h-4zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM12 32h1v1h-1zM15 32h3v1h-3zM20 32h2v1h-2zM26 32h1v1h-1zM28 32h6v1h-6zM35 32h1v1h-1zM4 33h1v1h-1zM6 33h3v1h-3zM10 33h1v1h-1zM12 33h1v1h-1zM14 33h2v1h-2zM17 33h1v1h-1zM20 33h5v1h-5zM26 33h1v1h-1zM28 33h2v1h-2zM32 33h2v1h-2zM35 33h2v1h-2zM4 34h1v1h-1zM6 34h3v1h-3zM10 34h1v1h-1zM12 34h1v1h-1zM14 34h2v1h-2zM18 34h4v1h-4zM24 34h2v1h-2zM27 34h2v1h-2zM30 34h2v1h-2zM33 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM15 35h1v1h-1zM17 35h2v1h-2zM20 35h1v1h-1zM23 35h1v1h-1zM25 35h2v1h-2zM29 35h2v1h-2zM32 35h3v1h-3zM4 36h7v1h-7zM12 36h1v1h-1zM14 36h5v1h-5zM21 36h2v1h-2zM24 36h1v1h-1zM26 36h6v1h-6zM35 36h1v1h-1z"},"guideQr":{"n":45,"d":"M4 4h7v1h-7zM14 4h1v1h-1zM17 4h1v1h-1zM19 4h1v1h-1zM22 4h2v1h-2zM26 4h1v1h-1zM30 4h1v1h-1zM34 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM14 5h1v1h-1zM16 5h1v1h-1zM18 5h1v1h-1zM22 5h2v1h-2zM25 5h2v1h-2zM28 5h3v1h-3zM32 5h1v1h-1zM34 5h1v1h-1zM40 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h2v1h-2zM17 6h1v1h-1zM20 6h1v1h-1zM23 6h5v1h-5zM34 6h1v1h-1zM36 6h3v1h-3zM40 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h6v1h-6zM21 7h1v1h-1zM23 7h4v1h-4zM28 7h2v1h-2zM32 7h1v1h-1zM34 7h1v1h-1zM36 7h3v1h-3zM40 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM13 8h2v1h-2zM16 8h1v1h-1zM18 8h2v1h-2zM22 8h4v1h-4zM27 8h1v1h-1zM29 8h2v1h-2zM32 8h1v1h-1zM34 8h1v1h-1zM36 8h3v1h-3zM40 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM15 9h2v1h-2zM22 9h1v1h-1zM28 9h1v1h-1zM32 9h1v1h-1zM34 9h1v1h-1zM40 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM32 10h1v1h-1zM34 10h7v1h-7zM12 11h1v1h-1zM14 11h2v1h-2zM17 11h1v1h-1zM23 11h2v1h-2zM26 11h1v1h-1zM32 11h1v1h-1zM4 12h1v1h-1zM10 12h1v1h-1zM12 12h3v1h-3zM18 12h2v1h-2zM22 12h4v1h-4zM27 12h1v1h-1zM29 12h6v1h-6zM37 12h3v1h-3zM6 13h3v1h-3zM11 13h1v1h-1zM17 13h1v1h-1zM21 13h1v1h-1zM24 13h4v1h-4zM29 13h3v1h-3zM35 13h5v1h-5zM6 14h3v1h-3zM10 14h2v1h-2zM15 14h1v1h-1zM18 14h1v1h-1zM21 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM31 14h2v1h-2zM35 14h1v1h-1zM37 14h1v1h-1zM39 14h2v1h-2zM5 15h3v1h-3zM13 15h1v1h-1zM17 15h1v1h-1zM19 15h2v1h-2zM27 15h1v1h-1zM30 15h1v1h-1zM32 15h3v1h-3zM37 15h1v1h-1zM40 15h1v1h-1zM4 16h2v1h-2zM9 16h2v1h-2zM13 16h2v1h-2zM18 16h1v1h-1zM20 16h1v1h-1zM22 16h3v1h-3zM28 16h1v1h-1zM32 16h1v1h-1zM34 16h2v1h-2zM37 16h1v1h-1zM40 16h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM12 17h1v1h-1zM14 17h1v1h-1zM16 17h8v1h-8zM27 17h1v1h-1zM30 17h3v1h-3zM35 17h1v1h-1zM37 17h1v1h-1zM4 18h1v1h-1zM6 18h2v1h-2zM9 18h2v1h-2zM13 18h5v1h-5zM19 18h3v1h-3zM25 18h1v1h-1zM31 18h1v1h-1zM33 18h1v1h-1zM35 18h3v1h-3zM39 18h2v1h-2zM6 19h4v1h-4zM12 19h1v1h-1zM15 19h5v1h-5zM21 19h4v1h-4zM26 19h1v1h-1zM28 19h1v1h-1zM34 19h2v1h-2zM37 19h4v1h-4zM5 20h2v1h-2zM10 20h6v1h-6zM17 20h2v1h-2zM20 20h1v1h-1zM25 20h1v1h-1zM28 20h4v1h-4zM33 20h2v1h-2zM36 20h1v1h-1zM38 20h1v1h-1zM7 21h3v1h-3zM12 21h1v1h-1zM15 21h1v1h-1zM21 21h2v1h-2zM24 21h1v1h-1zM27 21h1v1h-1zM31 21h1v1h-1zM33 21h1v1h-1zM35 21h1v1h-1zM37 21h1v1h-1zM39 21h1v1h-1zM8 22h4v1h-4zM14 22h1v1h-1zM19 22h1v1h-1zM24 22h1v1h-1zM27 22h2v1h-2zM30 22h2v1h-2zM34 22h1v1h-1zM36 22h1v1h-1zM38 22h1v1h-1zM40 22h1v1h-1zM4 23h2v1h-2zM7 23h3v1h-3zM11 23h1v1h-1zM13 23h2v1h-2zM18 23h1v1h-1zM23 23h2v1h-2zM26 23h2v1h-2zM30 23h1v1h-1zM34 23h3v1h-3zM40 23h1v1h-1zM4 24h4v1h-4zM10 24h2v1h-2zM13 24h3v1h-3zM18 24h2v1h-2zM21 24h1v1h-1zM23 24h1v1h-1zM26 24h6v1h-6zM33 24h2v1h-2zM36 24h3v1h-3zM5 25h2v1h-2zM9 25h1v1h-1zM11 25h3v1h-3zM15 25h3v1h-3zM19 25h2v1h-2zM22 25h2v1h-2zM25 25h3v1h-3zM29 25h3v1h-3zM36 25h1v1h-1zM38 25h1v1h-1zM5 26h1v1h-1zM7 26h1v1h-1zM10 26h1v1h-1zM13 26h1v1h-1zM15 26h1v1h-1zM19 26h1v1h-1zM22 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM30 26h3v1h-3zM35 26h3v1h-3zM39 26h2v1h-2zM5 27h5v1h-5zM15 27h1v1h-1zM20 27h1v1h-1zM24 27h2v1h-2zM27 27h2v1h-2zM32 27h6v1h-6zM39 27h2v1h-2zM5 28h1v1h-1zM10 28h1v1h-1zM12 28h2v1h-2zM17 28h1v1h-1zM19 28h5v1h-5zM25 28h1v1h-1zM27 28h2v1h-2zM32 28h1v1h-1zM34 28h1v1h-1zM40 28h1v1h-1zM4 29h1v1h-1zM8 29h2v1h-2zM11 29h2v1h-2zM15 29h3v1h-3zM20 29h1v1h-1zM25 29h1v1h-1zM27 29h1v1h-1zM29 29h1v1h-1zM31 29h2v1h-2zM37 29h2v1h-2zM4 30h1v1h-1zM9 30h2v1h-2zM12 30h2v1h-2zM15 30h1v1h-1zM17 30h2v1h-2zM21 30h2v1h-2zM24 30h2v1h-2zM31 30h1v1h-1zM33 30h2v1h-2zM38 30h3v1h-3zM4 31h1v1h-1zM8 31h2v1h-2zM12 31h2v1h-2zM16 31h1v1h-1zM18 31h2v1h-2zM24 31h1v1h-1zM28 31h1v1h-1zM30 31h2v1h-2zM33 31h2v1h-2zM36 31h1v1h-1zM38 31h1v1h-1zM40 31h1v1h-1zM4 32h1v1h-1zM7 32h2v1h-2zM10 32h1v1h-1zM13 32h1v1h-1zM15 32h1v1h-1zM18 32h1v1h-1zM21 32h1v1h-1zM24 32h1v1h-1zM26 32h2v1h-2zM29 32h2v1h-2zM32 32h5v1h-5zM38 32h3v1h-3zM12 33h1v1h-1zM14 33h3v1h-3zM19 33h6v1h-6zM26 33h2v1h-2zM32 33h1v1h-1zM36 33h1v1h-1zM39 33h1v1h-1zM4 34h7v1h-7zM14 34h2v1h-2zM17 34h1v1h-1zM19 34h2v1h-2zM23 34h8v1h-8zM32 34h1v1h-1zM34 34h1v1h-1zM36 34h1v1h-1zM40 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM14 35h3v1h-3zM19 35h1v1h-1zM21 35h2v1h-2zM26 35h1v1h-1zM30 35h1v1h-1zM32 35h1v1h-1zM36 35h1v1h-1zM39 35h1v1h-1zM4 36h1v1h-1zM6 36h3v1h-3zM10 36h1v1h-1zM14 36h2v1h-2zM19 36h2v1h-2zM23 36h1v1h-1zM25 36h1v1h-1zM28 36h9v1h-9zM38 36h3v1h-3zM4 37h1v1h-1zM6 37h3v1h-3zM10 37h1v1h-1zM14 37h1v1h-1zM16 37h1v1h-1zM18 37h1v1h-1zM20 37h1v1h-1zM22 37h1v1h-1zM27 37h1v1h-1zM29 37h6v1h-6zM37 37h1v1h-1zM40 37h1v1h-1zM4 38h1v1h-1zM6 38h3v1h-3zM10 38h1v1h-1zM13 38h4v1h-4zM18 38h3v1h-3zM22 38h2v1h-2zM25 38h2v1h-2zM28 38h4v1h-4zM38 38h3v1h-3zM4 39h1v1h-1zM10 39h1v1h-1zM13 39h1v1h-1zM23 39h2v1h-2zM28 39h1v1h-1zM30 39h1v1h-1zM32 39h2v1h-2zM36 39h2v1h-2zM40 39h1v1h-1zM4 40h7v1h-7zM12 40h3v1h-3zM19 40h1v1h-1zM24 40h1v1h-1zM32 40h1v1h-1zM35 40h1v1h-1zM40 40h1v1h-1z"}}]}</script>
+<script>(() => {
+  const data = JSON.parse(document.getElementById("guide-data").textContent);
+  const root = document.documentElement;
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => [...document.querySelectorAll(sel)];
+  const store = {
+    get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
+  };
+
+  const QR_DARK = "#00323c";
+  const qrSvg = (q) =>
+    `<svg viewBox="0 0 ${q.n} ${q.n}" shape-rendering="crispEdges" aria-hidden="true"><rect width="${q.n}" height="${q.n}" fill="#fff"/><path fill="${QR_DARK}" d="${q.d}"/></svg>`;
+
+  // ── Device ─────────────────────────────────────────────────────
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const isAndroid = /Android/.test(ua);
+  const setOS = (os) => {
+    root.dataset.os = os;
+    $$(".g-os [data-os]").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.os === os)));
+    if (os === "android") renderPreview();
+  };
+  $$(".g-os [data-os]").forEach((b) => b.addEventListener("click", () => setOS(b.dataset.os)));
+  $(".g-handoff").hidden = isIOS || isAndroid;
+
+  // ── Person + state ─────────────────────────────────────────────
+  const select = $("#person");
+  const byId = Object.fromEntries(data.people.map((p) => [p.id, p]));
+  let person = byId[new URLSearchParams(location.search).get("p")] || byId[store.get("guide-person")] || data.people[0];
+  let cardLang = "uk";
+  let done = new Set();
+
+  const fullName = (p, lang) => `${p.first[lang]} ${p.last[lang]}`;
+  const values = () => ({
+    name: fullName(person, "uk"),
+    title: person.title.uk,
+    url: person.url,
+    urlEn: `${person.url}?lang=en`,
+    cardName: fullName(person, cardLang),
+    cardTitle: person.title[cardLang],
+    company: data.company,
+    color: "#00323C",
+    done: String(done.size),
+  });
+
+  const bind = () => {
+    const v = values();
+    $$("[data-bind]").forEach((el) => { el.textContent = v[el.dataset.bind]; });
+    $$("[data-href]").forEach((el) => { el.href = v[el.dataset.href]; });
+    $$("[data-qr]").forEach((el) => { el.innerHTML = qrSvg(person[el.dataset.qr]); });
+    $$("[data-card-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.cardLang === cardLang)));
+    $(".g-bar i").style.width = `${(done.size / steps.length) * 100}%`;
+    $(".g-finish").hidden = done.size < steps.length;
+    if (root.dataset.os === "android") renderPreview();
+  };
+
+  const choose = (p) => {
+    person = p;
+    select.value = p.id;
+    store.set("guide-person", p.id);
+    history.replaceState(null, "", `?p=${encodeURIComponent(p.id)}`);
+    try { done = new Set(JSON.parse(store.get(`guide-done:${p.id}`) || "[]")); } catch { done = new Set(); }
+    steps.forEach((s) => s.classList.toggle("done", done.has(s.dataset.step)));
+    open(steps.find((s) => !done.has(s.dataset.step)));
+    bind();
+  };
+  select.addEventListener("change", () => choose(byId[select.value]));
+
+  // ── Steps accordion ────────────────────────────────────────────
+  const steps = $$(".step");
+  const open = (step) => steps.forEach((s) => {
+    const on = s === step;
+    s.classList.toggle("open", on);
+    s.querySelector(".step-h").setAttribute("aria-expanded", String(on));
+  });
+  steps.forEach((s) => {
+    s.querySelector(".step-h").addEventListener("click", () => open(s.classList.contains("open") ? null : s));
+    s.querySelector(".step-done").addEventListener("click", () => {
+      done.add(s.dataset.step);
+      s.classList.add("done");
+      store.set(`guide-done:${person.id}`, JSON.stringify([...done]));
+      const next = steps.find((x) => !done.has(x.dataset.step));
+      open(next);
+      bind();
+      (next || $(".g-finish")).scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  $$("[data-card-lang]").forEach((b) => b.addEventListener("click", () => { cardLang = b.dataset.cardLang; bind(); }));
+
+  // ── Copy ───────────────────────────────────────────────────────
+  const copyText = async (text) => {
+    try { await navigator.clipboard.writeText(text); return true; } catch {}
+    const ta = Object.assign(document.createElement("textarea"), { value: text, readOnly: true });
+    ta.style.cssText = "position:fixed;opacity:0";
+    document.body.append(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch {}
+    ta.remove();
+    return ok;
+  };
+  $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+    if (!(await copyText(values()[b.dataset.copy]))) return;
+    const label = b.querySelector("span");
+    b.classList.add("ok");
+    label.textContent = "Скопійовано";
+    setTimeout(() => { b.classList.remove("ok"); label.textContent = "Копіювати"; }, 1600);
+  }));
+
+  // ── Canvas: wallet card + logo ────────────────────────────────
+  const drawMark = (g, d, x, y, h, color) => {
+    g.save();
+    g.translate(x, y);
+    g.scale(h / 1080, h / 1080);
+    g.fillStyle = color;
+    g.fill(new Path2D(d));
+    g.restore();
+  };
+  const fit = (g, text, weight, size, min, maxW) => {
+    for (; size > min; size -= 2) {
+      g.font = `${weight} ${size}px Inter, system-ui, sans-serif`;
+      if (g.measureText(text).width <= maxW) break;
+    }
+    return size;
+  };
+
+  const walletCanvas = async () => {
+    await Promise.all(["700 96px Inter", "500 40px Inter", "600 26px Inter"].map((f) => document.fonts.load(f)));
+    const W = 1080, H = 1350, pad = 84;
+    const c = Object.assign(document.createElement("canvas"), { width: W, height: H });
+    const g = c.getContext("2d");
+    g.fillStyle = "#00323c";
+    g.fillRect(0, 0, W, H);
+    drawMark(g, data.brand.sign, W * 0.3, -H * 0.06, H * 1.12, "#063b46");
+    drawMark(g, data.brand.logo, pad, pad, 54, "#ffffff");
+
+    const tag = cardLang === "en" ? "BUSINESS CARD" : "ВІЗИТКА";
+    g.font = "600 26px Inter, system-ui, sans-serif";
+    if ("letterSpacing" in g) g.letterSpacing = "4px";
+    g.fillStyle = "rgba(237,233,228,.76)";
+    g.textAlign = "right";
+    g.fillText(tag, W - pad, pad + 38);
+    const tagW = g.measureText(tag).width;
+    if ("letterSpacing" in g) g.letterSpacing = "0px";
+    const t = Math.tan((11 * Math.PI) / 180), bx = W - pad - tagW - 62, by = pad + 17;
+    g.save();
+    g.transform(1, 0, -t, 1, t * (by + 11), 0);
+    g.fillStyle = "#eb3c28";
+    g.fillRect(bx, by, 40, 22);
+    g.restore();
+
+    g.textAlign = "left";
+    g.fillStyle = "#ffffff";
+    const first = person.first[cardLang], last = person.last[cardLang];
+    const size = Math.min(fit(g, first, 700, 100, 56, W - 2 * pad), fit(g, last, 700, 100, 56, W - 2 * pad));
+    g.font = `700 ${size}px Inter, system-ui, sans-serif`;
+    g.fillText(first, pad, 300);
+    g.fillText(last, pad, 300 + size * 0.98);
+    g.fillStyle = "rgba(237,233,228,.8)";
+    fit(g, person.title[cardLang], 500, 40, 26, W - 2 * pad);
+    g.fillText(person.title[cardLang], pad, 300 + size * 0.98 + 70);
+
+    const q = person.qr, box = 660, bx0 = (W - box) / 2, by0 = 560;
+    g.fillStyle = "#ffffff";
+    g.beginPath();
+    g.roundRect(bx0, by0, box, box, 36);
+    g.fill();
+    const m = Math.floor((box - 40) / q.n), qx = Math.round(bx0 + (box - m * q.n) / 2), qy = Math.round(by0 + (box - m * q.n) / 2);
+    g.save();
+    g.translate(qx, qy);
+    g.scale(m, m);
+    g.fillStyle = QR_DARK;
+    g.fill(new Path2D(q.d));
+    g.restore();
+
+    g.fillStyle = "rgba(237,233,228,.85)";
+    g.textAlign = "center";
+    fit(g, person.url.replace(/^https:\/\//, "").replace(/\/$/, ""), 500, 32, 22, W - 2 * pad);
+    g.fillText(person.url.replace(/^https:\/\//, "").replace(/\/$/, ""), W / 2, by0 + box + 72);
+    return c;
+  };
+
+  const logoCanvas = () => {
+    const c = Object.assign(document.createElement("canvas"), { width: 600, height: 157 });
+    drawMark(c.getContext("2d"), data.brand.logo, 0, 0, 157, "#ffffff");
+    return c;
+  };
+
+  let previewToken = 0;
+  const renderPreview = async () => {
+    const token = ++previewToken;
+    const c = await walletCanvas();
+    if (token === previewToken) $("[data-wallet-preview]").src = c.toDataURL("image/png");
+  };
+
+  const save = (canvas, name) => canvas.toBlob((blob) => {
+    const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: name });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, "image/png");
+
+  $$("[data-download]").forEach((b) => b.addEventListener("click", async () => {
+    if (b.dataset.download === "logo") save(logoCanvas(), "idea-logo.png");
+    else save(await walletCanvas(), `vizytka-idea-${person.id}.png`);
+  }));
+
+  setOS(isAndroid ? "android" : "ios");
+  choose(person);
+})();</script>
+</body>
+</html>

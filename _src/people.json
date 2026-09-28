@@ -6,13 +6,14 @@
     "tagline": {
       "uk": "Архітектори бізнес-подій та подорожей",
       "en": "Architects of business events and travel"
-    }
+    },
+    "contact": {"name": "Денису", "telegram": "https://t.me/den8eight"}
   },
   "people": [
     {
       "slug": "",
-      "first": "Denys",
-      "last": "Hotsalo",
+      "first": {"uk": "Денис", "en": "Denys"},
+      "last": {"uk": "Гоцало", "en": "Hotsalo"},
       "title": {"uk": "Junior AI/ML Engineer", "en": "Junior AI/ML Engineer"},
       "bio": {
         "uk": "Будую LLM-ботів і агентів, які автоматизують бізнес-процеси компанії.",
@@ -30,8 +31,8 @@
     },
     {
       "slug": "alyona-shalahinova",
-      "first": "Alyona",
-      "last": "Shalahinova",
+      "first": {"uk": "Альона", "en": "Alyona"},
+      "last": {"uk": "Шалагінова", "en": "Shalahinova"},
       "title": {"uk": "Менеджер з розвитку бізнесу", "en": "Business Development Manager"},
       "city": {"uk": "Київ", "en": "Kyiv"},
       "phone": "+380992012929",

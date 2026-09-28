@@ -4,6 +4,7 @@
   const setLang = (lang) => {
     root.dataset.lang = lang;
     root.lang = lang;
+    document.title = root.dataset[lang === "en" ? "titleEn" : "titleUk"];
     langButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.setLang === lang)));
   };
   langButtons.forEach((b) => b.addEventListener("click", () => {
