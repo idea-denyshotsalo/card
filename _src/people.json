@@ -1,0 +1,45 @@
+{
+  "site": "https://idea-denyshotsalo.github.io/card/",
+  "company": {
+    "name": "IDEA Travel Solutions",
+    "website": "https://ideatravel.solutions",
+    "tagline": {
+      "uk": "Архітектори бізнес-подій та подорожей",
+      "en": "Architects of business events and travel"
+    }
+  },
+  "people": [
+    {
+      "slug": "",
+      "first": "Denys",
+      "last": "Hotsalo",
+      "title": {"uk": "Junior AI/ML Engineer", "en": "Junior AI/ML Engineer"},
+      "bio": {
+        "uk": "Будую LLM-ботів і агентів, які автоматизують бізнес-процеси компанії.",
+        "en": "I build LLM bots and agents that automate the company's business processes."
+      },
+      "city": {"uk": "Київ", "en": "Kyiv"},
+      "phone": "+380934148277",
+      "email": "denys.hotsalo@ideatech.dev",
+      "links": {
+        "linkedin": "https://linkedin.com/in/denys-hotsalo-6a2892272",
+        "telegram": "https://t.me/den8eight",
+        "instagram": "https://instagram.com/den.eight",
+        "github": "https://github.com/DenEight8"
+      }
+    },
+    {
+      "slug": "alyona-shalahinova",
+      "first": "Alyona",
+      "last": "Shalahinova",
+      "title": {"uk": "Менеджер з розвитку бізнесу", "en": "Business Development Manager"},
+      "city": {"uk": "Київ", "en": "Kyiv"},
+      "phone": "+380992012929",
+      "email": "alona.shalahinova@ideatravelsolutions.com",
+      "links": {
+        "linkedin": "https://linkedin.com/in/alona-s-0a8066372",
+        "telegram": "https://t.me/shalaginova2000"
+      }
+    }
+  ]
+}
