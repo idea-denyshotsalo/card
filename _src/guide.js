@@ -8,9 +8,8 @@
     set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
   };
 
-  const QR_DARK = "#00323c";
   const qrSvg = (q) =>
-    `<svg viewBox="0 0 ${q.n} ${q.n}" shape-rendering="crispEdges" aria-hidden="true"><rect width="${q.n}" height="${q.n}" fill="#fff"/><path fill="${QR_DARK}" d="${q.d}"/></svg>`;
+    `<svg viewBox="0 0 ${q.n} ${q.n}" shape-rendering="crispEdges" aria-hidden="true"><rect width="${q.n}" height="${q.n}" fill="#fff"/><path class="qr-d" d="${q.d}"/></svg>`;
 
   // ── Device ─────────────────────────────────────────────────────
   const ua = navigator.userAgent;
@@ -29,6 +28,7 @@
   const byId = Object.fromEntries(data.people.map((p) => [p.id, p]));
   let person = byId[new URLSearchParams(location.search).get("p")] || byId[store.get("guide-person")] || data.people[0];
   let cardLang = "uk";
+  let cardTheme = person.theme;
   let done = new Set();
 
   const fullName = (p, lang) => `${p.first[lang]} ${p.last[lang]}`;
@@ -40,7 +40,8 @@
     cardName: fullName(person, cardLang),
     cardTitle: person.title[cardLang],
     company: data.company,
-    color: "#00323C",
+    cardColor: data.themes[cardTheme].dark.toUpperCase(),
+    color: data.themes[cardTheme].dark.toUpperCase(),
     done: String(done.size),
   });
 
@@ -50,6 +51,12 @@
     $$("[data-href]").forEach((el) => { el.href = v[el.dataset.href]; });
     $$("[data-qr]").forEach((el) => { el.innerHTML = qrSvg(person[el.dataset.qr]); });
     $$("[data-card-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.cardLang === cardLang)));
+    $$("[data-card-theme]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.cardTheme === cardTheme)));
+    $$("[data-theme-link]").forEach((a) => {
+      a.href = `${person.url}?theme=${a.dataset.themeLink}`;
+      a.setAttribute("aria-current", String(a.dataset.themeLink === person.theme));
+    });
+    $$(".swatch").forEach((s) => { s.style.background = data.themes[cardTheme].dark; });
     $(".g-bar i").style.width = `${(done.size / steps.length) * 100}%`;
     $(".g-finish").hidden = done.size < steps.length;
     if (root.dataset.os === "android") renderPreview();
@@ -57,6 +64,8 @@
 
   const choose = (p) => {
     person = p;
+    cardTheme = p.theme;
+    root.dataset.theme = p.theme;
     select.value = p.id;
     store.set("guide-person", p.id);
     history.replaceState(null, "", `?p=${encodeURIComponent(p.id)}`);
@@ -88,6 +97,7 @@
   });
 
   $$("[data-card-lang]").forEach((b) => b.addEventListener("click", () => { cardLang = b.dataset.cardLang; bind(); }));
+  $$("[data-card-theme]").forEach((b) => b.addEventListener("click", () => { cardTheme = b.dataset.cardTheme; bind(); }));
 
   // ── Copy ───────────────────────────────────────────────────────
   const copyText = async (text) => {
@@ -131,9 +141,10 @@
     const W = 1080, H = 1350, pad = 84;
     const c = Object.assign(document.createElement("canvas"), { width: W, height: H });
     const g = c.getContext("2d");
-    g.fillStyle = "#00323c";
+    const theme = data.themes[cardTheme];
+    g.fillStyle = theme.dark;
     g.fillRect(0, 0, W, H);
-    drawMark(g, data.brand.sign, W * 0.3, -H * 0.06, H * 1.12, "#063b46");
+    drawMark(g, data.brand.sign, W * 0.3, -H * 0.06, H * 1.12, theme.mark);
     drawMark(g, data.brand.logo, pad, pad, 54, "#ffffff");
 
     const tag = cardLang === "en" ? "BUSINESS CARD" : "ВІЗИТКА";
@@ -171,7 +182,7 @@
     g.save();
     g.translate(qx, qy);
     g.scale(m, m);
-    g.fillStyle = QR_DARK;
+    g.fillStyle = theme.dark;
     g.fill(new Path2D(q.d));
     g.restore();
 
