@@ -9,6 +9,12 @@ Each page shows the contact rows, a "Save contact" button and a QR code that poi
 
 The interactive guide for staff lives at `guide/`; `guide/?p=<slug>` (`?p=home` for the root card) opens it pre-filled for one person. It walks through the home-screen shortcut, Apple Wallet (WalletWallet fields with copy buttons) and Google Wallet (a branded PNG with the QR, drawn in the browser).
 
+## Publishing
+
+This repo holds the sources and history; the public site is served from [`idea-denyshotsalo/team`](https://github.com/idea-denyshotsalo/team). Every push to `main` runs `.github/workflows/publish.yml`, which copies the built pages (never `_src/`) into `team` as one orphan commit, so the public repo carries no history and no data files. The workflow pushes with the `TEAM_DEPLOY_KEY` secret, a write deploy key on `team`.
+
+The workflow does not build: run `uv run _src/build.py` and commit the generated files in the same PR.
+
 ## Add or edit a person
 
 1. Edit `_src/people.json`. `slug` is the folder name and URL path (`""` = site root). `first`, `last`, `title`, `bio`, `city` take `uk` and `en` variants; `bio` and every entry in `links` are optional (`linkedin`, `telegram`, `instagram`, `github`). `theme` picks the card colour: `burgundy`, `green` or `black` (defaults to `company.theme`).
