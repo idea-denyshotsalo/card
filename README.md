@@ -11,7 +11,7 @@ The interactive guide for staff lives at `guide/`; `guide/?p=<slug>` (`?p=home` 
 
 ## Add or edit a person
 
-1. Edit `_src/people.json`. `slug` is the folder name and URL path (`""` = site root). `first`, `last`, `title`, `bio`, `city` take `uk` and `en` variants; `bio` and every entry in `links` are optional (`linkedin`, `telegram`, `instagram`, `github`).
+1. Edit `_src/people.json`. `slug` is the folder name and URL path (`""` = site root). `first`, `last`, `title`, `bio`, `city` take `uk` and `en` variants; `bio` and every entry in `links` are optional (`linkedin`, `telegram`, `instagram`, `github`). `theme` picks the card colour: `burgundy`, `green` or `black` (defaults to `company.theme`).
 2. Rebuild:
 
    ```
@@ -48,5 +48,7 @@ Never hand-edit the generated pages: the next build overwrites them. The old pho
 Old `idea-denyshotsalo.github.io/card/...` links keep working: GitHub redirects them to the custom domain, path included.
 
 Brand colours and the IDEA logo paths come from `14_CBT_PROTO/web/src/styles/tokens.css` and `web/public/brand/`. The brand display face (PP Neue Machina) is commercial and deliberately not shipped in this public repo; Inter is the brand's body face.
+
+Colour themes live in `THEMES` in `build.py` (pass, watermark, QR, dark-mode surfaces, favicon, manifest, `assets/icon-<size>-<theme>.png`). `?theme=green` previews a card in another colour without changing it; the guide links to these previews and lets each person pick the wallet-card colour.
 
 The page language follows the browser (`uk`/`ru` → Ukrainian, otherwise English); `?lang=en` or `?lang=uk` forces one, and the footer toggle remembers the choice.

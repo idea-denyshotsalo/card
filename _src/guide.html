@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="uk" data-lang="uk">
+<html lang="uk" data-lang="uk" data-theme="$theme" data-themes="$themes">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,7 +7,7 @@
 <meta name="description" content="Як користуватися електронною візиткою IDEA: головний екран, Apple Wallet, Google Wallet.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#e1dcd5" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#00262d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="$night_bg" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="$favicon">
 <link rel="preload" href="${assets}assets/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <style>$font_css$css</style>
@@ -45,7 +45,8 @@
 <div class="step-b">
 <p>Відкрийте сторінку й перевірте ім'я, посаду, телефон і пошту. Перемикач UA / EN унизу сторінки показує англійську версію: її бачать іноземні партнери.</p>
 <a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити мою візитку $icon_go</a>
-<p class="note">Щось не так? <a data-contact href="$contact_tg" target="_blank" rel="noopener">Напишіть $contact_name</a>: виправлення з'явиться за хвилину, а QR-код не зміниться.</p>
+<div class="g-colors"><span class="kicker">Колір візитки</span><div class="sws">$theme_links</div><p class="note">Торкніться кольору, щоб побачити свою візитку в ньому. Сподобався інший? <a href="$contact_tg" target="_blank" rel="noopener">Напишіть $contact_name</a>, і колір зміниться для всіх, хто відкриє вашу візитку.</p></div>
+<p class="note">Щось не так із даними? <a data-contact href="$contact_tg" target="_blank" rel="noopener">Напишіть $contact_name</a>: виправлення з'явиться за хвилину, а QR-код не зміниться.</p>
 <button class="btn btn-accent step-done" type="button">Все правильно, далі</button>
 </div>
 </li>
@@ -75,6 +76,7 @@
 <button class="step-h" type="button"><span class="step-n"><span>3</span>$icon_check</span><span class="step-t">Додайте в гаманець</span><span class="step-m">2 хв</span></button>
 <div class="step-b">
 <div class="g-cardlang"><span class="kicker">Мова тексту на картці</span><div class="lang" role="group" aria-label="Мова картки"><button type="button" data-card-lang="uk">UA</button><button type="button" data-card-lang="en">EN</button></div></div>
+<div class="g-colors"><span class="kicker">Колір картки в гаманці</span><div class="sws" role="group" aria-label="Колір картки">$theme_buttons</div></div>
 
 <div data-only="ios">
 <p>Apple Wallet приймає лише підписані картки. Сервіс WalletWallet підписує їх безкоштовно й без реєстрації.</p>
@@ -88,7 +90,7 @@
 <div><dt>Pass Title</dt><dd>$company</dd><button class="copy" type="button" data-copy="company">$icon_copy<span>Копіювати</span></button></div>
 <div><dt>Label</dt><dd data-bind="cardName"></dd><button class="copy" type="button" data-copy="cardName">$icon_copy<span>Копіювати</span></button></div>
 <div><dt>Value</dt><dd data-bind="cardTitle"></dd><button class="copy" type="button" data-copy="cardTitle">$icon_copy<span>Копіювати</span></button></div>
-<div><dt>Card Color</dt><dd><i class="swatch"></i>#00323C</dd><button class="copy" type="button" data-copy="color">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Card Color</dt><dd><i class="swatch"></i><span data-bind="cardColor"></span></dd><button class="copy" type="button" data-copy="color">$icon_copy<span>Копіювати</span></button></div>
 </dl>
 <ol class="howto" start="3">
 <li>Необов'язково: <button class="link" type="button" data-download="logo">завантажте логотип IDEA</button> і додайте його в <b>Pass Logo</b>.</li>
@@ -113,7 +115,7 @@
 <div><dt>Pass Title</dt><dd>$company</dd><button class="copy" type="button" data-copy="company">$icon_copy<span>Копіювати</span></button></div>
 <div><dt>Label</dt><dd data-bind="cardName"></dd><button class="copy" type="button" data-copy="cardName">$icon_copy<span>Копіювати</span></button></div>
 <div><dt>Value</dt><dd data-bind="cardTitle"></dd><button class="copy" type="button" data-copy="cardTitle">$icon_copy<span>Копіювати</span></button></div>
-<div><dt>Card Color</dt><dd><i class="swatch"></i>#00323C</dd><button class="copy" type="button" data-copy="color">$icon_copy<span>Копіювати</span></button></div>
+<div><dt>Card Color</dt><dd><i class="swatch"></i><span data-bind="cardColor"></span></dd><button class="copy" type="button" data-copy="color">$icon_copy<span>Копіювати</span></button></div>
 </dl>
 <p>Потім натисніть <b>Add to Google Wallet</b>.</p>
 </details>

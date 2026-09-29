@@ -28,6 +28,23 @@ LANGS = ("uk", "en")
 LOGO_D = "M4050.61 0H3451.66L3055.47 836.397H2493.71L2530.52 654.043H3032.86L3075.76 424.321H2573.31L2610.12 243.575H3189.11L3236.63 0H2378.89L2338.45 206.516C2256.27 83.2007 2115.98 0 1952.95 0H211.429L163.93 243.603H410.452L294.021 834.925H48.999L0 1080L1853.59 1079.89C1979.37 1079.89 2096.68 1037.05 2190.15 964.021L2167.46 1079.89H3238.87L3390.39 753.606H3827.02L3851.56 1079.89H4141L4050.61 0ZM687.949 243.603H926.591L810.296 834.925H571.518L687.949 243.603ZM3502.27 510.112L3707.48 69.0203H3776.55L3808.67 510.112H3502.27Z"
 SIGN_D = "M1952.64 0H211.383L163.888 243.603H410.389L293.968 834.925H48.9674L0 1080L1853.29 1079.89C2114.52 1079.89 2320.47 904.19 2389.7 638.69C2485.42 271.8 2244.19 0 1952.64 0ZM687.834 243.603H926.455L810.171 834.925H571.414L687.834 243.603Z"
 
+# Card colours from the IDEA palette. `dark` fills the pass and the QR modules, `mark` the monogram
+# watermark; `night` holds the dark-mode surfaces. The first theme is the fallback.
+THEMES = {
+    "burgundy": {
+        "uk": "Бургунді", "en": "Burgundy", "dark": "#640832", "mark": "#6f0e3a",
+        "night": {"bg": "#1c0710", "paper": "#351220", "muted": "#c8aeb8", "dark": "#640832", "mark": "#6f0e3a"},
+    },
+    "green": {
+        "uk": "Зелений", "en": "Green", "dark": "#00323c", "mark": "#063b46",
+        "night": {"bg": "#00262d", "paper": "#0d4450", "muted": "#a3b5b8", "dark": "#003f4b", "mark": "#074856"},
+    },
+    "black": {
+        "uk": "Чорний", "en": "Black", "dark": "#111111", "mark": "#1c1c1c",
+        "night": {"bg": "#0c0c0c", "paper": "#1d1d1d", "muted": "#a8a29e", "dark": "#1a1a1a", "mark": "#262626"},
+    },
+}
+
 # Tabler icons (MIT).
 _ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{}</svg>'
 ICONS = {
@@ -93,12 +110,42 @@ def brand_svg(d: str, width: int, cls: str, label: str = "") -> str:
     return f'<svg class="{cls}" viewBox="0 0 {width} 1080" {a11y}><path d="{d}"/></svg>'
 
 
-def favicon() -> str:
+def theme_of(person: dict, company: dict) -> str:
+    theme = person.get("theme") or company.get("theme", "")
+    return theme if theme in THEMES else next(iter(THEMES))
+
+
+def theme_css() -> str:
+    day = "".join(
+        f':root[data-theme="{key}"] {{ --dark: {t["dark"]}; --mark: {t["mark"]}; --qr: {t["dark"]}; }}\n'
+        for key, t in THEMES.items()
+    )
+    night = "".join(
+        f'  :root[data-theme="{key}"] {{ --bg: {n["bg"]}; --paper: {n["paper"]}; --muted: {n["muted"]}; '
+        f'--dark: {n["dark"]}; --mark: {n["mark"]}; }}\n'
+        for key, t in THEMES.items()
+        for n in (t["night"],)
+    )
+    return f"{day}@media (prefers-color-scheme: dark) {{\n{night}}}\n"
+
+
+def favicon(theme: str) -> str:
     svg = (
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#00323c"/>'
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="{THEMES[theme]["dark"]}"/>'
         f'<path transform="translate(8 21.25) scale(.01991)" fill="#eb3c28" d="{SIGN_D}"/></svg>'
     )
     return "data:image/svg+xml," + quote(svg)
+
+
+def theme_meta(theme: str, prefix: str) -> dict[str, str]:
+    """Template values that depend on the page's colour theme."""
+    return {
+        "theme": theme,
+        "themes": " ".join(THEMES),
+        "night_bg": THEMES[theme]["night"]["bg"],
+        "favicon": favicon(theme),
+        "touch_icon": f"{prefix}assets/icon-180-{theme}.png",
+    }
 
 
 def font_css(prefix: str) -> str:
@@ -181,7 +228,7 @@ def qr_svg(url: str) -> str:
     n, d = qr_path(url)
     return (
         f'<svg viewBox="0 0 {n} {n}" shape-rendering="crispEdges" aria-hidden="true">'
-        f'<rect width="{n}" height="{n}" fill="#fff"/><path fill="#00323c" d="{d}"/></svg>'
+        f'<rect width="{n}" height="{n}" fill="#fff"/><path class="qr-d" d="{d}"/></svg>'
     )
 
 
@@ -211,10 +258,10 @@ def vcard(person: dict, company: dict, items: dict[str, str], lang: str) -> byte
     return ("\r\n".join(lines) + "\r\n").encode()
 
 
-def manifest(person: dict, company: dict, prefix: str) -> str:
+def manifest(person: dict, company: dict, prefix: str, theme: str) -> str:
     icons = [
-        {"src": f"{prefix}assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
-        {"src": f"{prefix}assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+        {"src": f"{prefix}assets/icon-192-{theme}.png", "sizes": "192x192", "type": "image/png"},
+        {"src": f"{prefix}assets/icon-512-{theme}.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
     ]
     body = {
         "name": f"{full_name(person, 'uk')} — {company['name']}",
@@ -223,7 +270,7 @@ def manifest(person: dict, company: dict, prefix: str) -> str:
         "scope": "./",
         "display": "browser",
         "background_color": "#e1dcd5",
-        "theme_color": "#00323c",
+        "theme_color": THEMES[theme]["dark"],
         "icons": icons,
     }
     return json.dumps(body, ensure_ascii=False, indent=2) + "\n"
@@ -247,6 +294,7 @@ def render_card(person: dict, data: dict, template: Template, parts: dict[str, s
     prefix = "../" if person["slug"] else ""
     return template.substitute(
         parts,
+        **theme_meta(theme_of(person, company), prefix),
         title_uk=html.escape(f"{name['uk']} — {company['name']}"),
         title_en=html.escape(f"{name['en']} — {company['name']}"),
         og_title=html.escape(f"{name['uk']} · {name['en']}" if name["uk"] != name["en"] else name["en"]),
@@ -279,13 +327,27 @@ def render_guide(data: dict, template: Template, parts: dict[str, str]) -> str:
             "first": person["first"],
             "last": person["last"],
             "title": person["title"],
+            "theme": theme_of(person, company),
             "qr": {"n": n, "d": d},
             "guideQr": {"n": gn, "d": gd},
         })
-    payload = {"company": company["name"], "brand": {"logo": LOGO_D, "sign": SIGN_D}, "people": people}
+    themes = {key: {"name": t["uk"], "dark": t["dark"], "mark": t["mark"]} for key, t in THEMES.items()}
+    payload = {"company": company["name"], "brand": {"logo": LOGO_D, "sign": SIGN_D}, "themes": themes, "people": people}
     options = "".join(f'<option value="{person_id(p)}">{html.escape(full_name(p, "uk"))}</option>' for p in data["people"])
+    swatch = '<{tag} class="sw" {attr}="{key}"{extra}><i style="background:{dark}"></i>{name}</{tag}>'
+    theme_links = "".join(
+        swatch.format(tag="a", attr="data-theme-link", key=k, extra=' target="_blank" rel="noopener"', dark=t["dark"], name=t["uk"])
+        for k, t in THEMES.items()
+    )
+    theme_buttons = "".join(
+        swatch.format(tag="button", attr="data-card-theme", key=k, extra=' type="button"', dark=t["dark"], name=t["uk"])
+        for k, t in THEMES.items()
+    )
     return template.substitute(
         parts,
+        **theme_meta(theme_of({}, company), "../"),
+        theme_links=theme_links,
+        theme_buttons=theme_buttons,
         assets="../",
         font_css=font_css("../"),
         company=html.escape(company["name"]),
@@ -301,6 +363,7 @@ def render_landing(data: dict, template: Template, parts: dict[str, str]) -> str
     company = data["company"]
     return template.substitute(
         parts,
+        **theme_meta(theme_of({}, company), ""),
         font_css=font_css(""),
         company=html.escape(company["name"]),
         website=company["website"],
@@ -320,13 +383,12 @@ def main() -> None:
     def read(name: str) -> str:
         return (SRC / name).read_text(encoding="utf-8")
 
-    base, card_css = read("base.css"), read("card.css")
+    base, card_css = read("base.css") + theme_css(), read("card.css")
     shared = {
-        "favicon": favicon(),
         "logo": brand_svg(LOGO_D, 4141, "pass-logo", "IDEA"),
         "mark": brand_svg(SIGN_D, 2411, "pass-mark"),
         "sign": brand_svg(SIGN_D, 2411, "foot-sign"),
-        "lang_js": read("lang.js").strip(),
+        "lang_js": read("prepaint.js").strip(),
         "js": read("card.js").strip(),
     }
     card_parts = {**shared, "css": base + card_css, "icon_save": icon("save"), "icon_share": icon("share")}
@@ -336,7 +398,7 @@ def main() -> None:
         out = ROOT / person["slug"]
         items = contacts(person, company)
         write(out / "index.html", render_card(person, data, card_tpl, card_parts))
-        write(out / "manifest.webmanifest", manifest(person, company, "../" if person["slug"] else ""))
+        write(out / "manifest.webmanifest", manifest(person, company, "../" if person["slug"] else "", theme_of(person, company)))
         (out / "contact.vcf").write_bytes(vcard(person, company, items, "uk"))
         (out / "contact.en.vcf").write_bytes(vcard(person, company, items, "en"))
         print(f"built {person['slug'] or '(root)'}")

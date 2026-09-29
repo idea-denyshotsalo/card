@@ -92,7 +92,20 @@
 .kv dd { grid-area: v; margin: 0; font-weight: 600; overflow-wrap: anywhere; }
 .kv .copy, .kv-hint { grid-area: a; }
 .kv-hint { font-size: 12.5px; color: var(--muted); padding-right: 6px; }
-.swatch { display: inline-block; width: 12px; height: 12px; margin-right: 7px; border-radius: 3px; background: #00323c; vertical-align: -1px; }
+.swatch { display: inline-block; width: 12px; height: 12px; margin-right: 7px; border-radius: 3px; background: var(--dark); vertical-align: -1px; }
+
+.g-colors { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.g-colors .note { margin: 0; }
+.sws { display: flex; flex-wrap: wrap; gap: 8px; }
+.sw {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 8px;
+  border: 1.5px solid var(--line); border-radius: 999px; background: transparent;
+  color: var(--ink); font: 600 14px/1 inherit; letter-spacing: inherit; text-decoration: none; cursor: pointer;
+  transition: border-color .15s ease;
+}
+.sw i { width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); }
+.sw[aria-pressed="true"], .sw[aria-current="true"] { border-color: var(--frame); }
+@media (hover: hover) { .sw:hover { border-color: var(--frame); } }
 .copy {
   display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 11px;
   border: 1.5px solid var(--frame); border-radius: 7px; background: transparent;
