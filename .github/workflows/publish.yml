@@ -1,0 +1,45 @@
+# Ships the built site to the public idea-denyshotsalo/team repo as a single orphan commit,
+# so the public side never carries history or sources. Build locally first: generated files
+# are committed and reviewed in the PR; CI only copies them.
+name: Publish site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: publish
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Collect site files
+        run: |
+          mkdir public
+          cp -r assets guide public/
+          for f in index.html manifest.webmanifest contact.vcf contact.en.vcf CNAME; do
+            if [ -f "$f" ]; then cp "$f" public/; fi
+          done
+          for d in */; do
+            d=${d%/}
+            case "$d" in assets|guide|public|_src) continue ;; esac
+            if [ -f "$d/index.html" ]; then cp -r "$d" public/; fi
+          done
+          find public -type f | sort
+
+      - uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
+        with:
+          deploy_key: ${{ secrets.TEAM_DEPLOY_KEY }}
+          external_repository: idea-denyshotsalo/team
+          publish_branch: main
+          publish_dir: ./public
+          force_orphan: true
+          user_name: IDEA cards publisher
+          user_email: denys.hotsalo@ideatech.dev
+          full_commit_message: Publish site
