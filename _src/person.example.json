@@ -1,0 +1,19 @@
+{
+  "slug": "olena-kovalenko",
+  "first": {"uk": "Олена", "en": "Olena"},
+  "last": {"uk": "Коваленко", "en": "Kovalenko"},
+  "title": {"uk": "Менеджер з корпоративних подорожей", "en": "Corporate Travel Manager"},
+  "bio": {
+    "uk": "Організовую відрядження й бізнес-події для корпоративних клієнтів.",
+    "en": "I organise business trips and events for corporate clients."
+  },
+  "city": {"uk": "Київ", "en": "Kyiv"},
+  "phone": "+380XXXXXXXXX",
+  "email": "olena.kovalenko@ideatravelsolutions.com",
+  "links": {
+    "linkedin": "https://linkedin.com/in/...",
+    "telegram": "https://t.me/...",
+    "instagram": "https://instagram.com/..."
+  },
+  "theme": "burgundy"
+}

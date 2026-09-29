@@ -17,7 +17,7 @@ The workflow does not build: run `uv run _src/build.py` and commit the generated
 
 ## Add or edit a person
 
-1. Edit `_src/people.json`. `slug` is the folder name and URL path (`""` = site root). `first`, `last`, `title`, `bio`, `city` take `uk` and `en` variants; `bio` and every entry in `links` are optional (`linkedin`, `telegram`, `instagram`, `github`). `theme` picks the card colour: `burgundy`, `green` or `black` (defaults to `company.theme`).
+1. Edit `_src/people.json`. `slug` is the folder name and URL path (`""` = site root). `first`, `last`, `title`, `bio`, `city` take `uk` and `en` variants; `bio` and every entry in `links` are optional (`linkedin`, `telegram`, `instagram`, `github`). `theme` picks the card colour: `burgundy`, `green` or `black` (defaults to `company.theme`). `_src/person.example.json` is a filled-in entry to copy; only people who agreed to publish their details go in.
 2. Rebuild:
 
    ```
