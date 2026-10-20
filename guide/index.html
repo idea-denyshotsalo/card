@@ -232,8 +232,13 @@ body {
 }
 .share-btn svg { width: 17px; height: 17px; }
 
-.zoom { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 24px; background: #fff; cursor: zoom-out; }
-.zoom svg { width: min(86vw, 80vh, 520px); height: auto; }
+.zoom {
+  position: fixed; inset: 0; z-index: 10; padding: 24px; background: #fff; color: #0a0a0a; cursor: zoom-out;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; text-align: center;
+}
+.zoom svg { width: min(86vw, 62vh, 520px); height: auto; }
+.zoom-name { font-size: clamp(22px, 6vw, 30px); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; text-wrap: balance; }
+.zoom-hint { font-size: 14px; color: #5c574f; }
 
 /* ── Footer ─────────────────────────────────────────────────────── */
 .foot { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 14px; text-align: center; }
@@ -458,6 +463,7 @@ body {
 </ol>
 <a class="btn" data-href="url" target="_blank" rel="noopener">Відкрити візитку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg></a>
 <p class="note">На екрані з'явиться іконка IDEA з підписом «Візитка IDEA». Тепер візитка відкривається одним дотиком.</p>
+<p class="note">Щоб іконка одразу показувала великий QR, додайте на екран саме з цього посилання: <a data-href="urlQr" target="_blank" rel="noopener">візитка з QR на весь екран</a>. Код лишається на екрані, поки ви його не закриєте.</p>
 <button class="btn btn-accent step-done" type="button">Готово, далі</button>
 </div>
 </li>
@@ -584,6 +590,7 @@ body {
     title: person.title.uk,
     url: person.url,
     urlEn: `${person.url}?lang=en`,
+    urlQr: `${person.url}?qr=1`,
     cardName: fullName(person, cardLang),
     cardTitle: person.title[cardLang],
     company: data.company,
