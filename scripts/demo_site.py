@@ -4,8 +4,8 @@
 # ///
 """Build the site from fictional data (scripts/demo_people.json) into .demo/, never touching real pages.
 
-    uv run scripts/demo_site.py            # build only
-    uv run scripts/demo_site.py --serve    # build, then serve on http://127.0.0.1:8000
+uv run scripts/demo_site.py            # build only
+uv run scripts/demo_site.py --serve    # build, then serve on http://127.0.0.1:8000
 """
 
 import argparse

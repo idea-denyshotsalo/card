@@ -13,17 +13,15 @@ import asyncio
 import functools
 import http.server
 import io
-import sys
+import runpy
 import threading
 from pathlib import Path
 
 from PIL import Image
 from playwright.async_api import async_playwright
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from demo_site import ROOT, build_demo  # noqa: E402
-
-OUT = ROOT / "docs" / "img"
+SCRIPTS = Path(__file__).resolve().parent
+OUT = SCRIPTS.parent / "docs" / "img"
 # frame name: (path on the demo site, element to capture)
 FRAMES = {
     "card": ("olena-kovalenko/?lang=en", ".wrap"),
@@ -55,7 +53,7 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    demo = build_demo()
+    demo = runpy.run_path(str(SCRIPTS / "demo_site.py"))["build_demo"]()
     handler = functools.partial(QuietHandler, directory=str(demo))
     server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
     threading.Thread(target=server.serve_forever, daemon=True).start()
