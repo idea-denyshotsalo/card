@@ -1,2 +1,4 @@
 .claude/
 __pycache__/
+# demo site built from scripts/demo_people.json
+.demo/
