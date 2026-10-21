@@ -1,0 +1,32 @@
+{
+  "site": "https://cards.ideatravel.test/",
+  "company": {
+    "name": "IDEA Travel Solutions",
+    "website": "https://ideatravel.solutions",
+    "theme": "burgundy",
+    "tagline": {
+      "uk": "Архітектори бізнес-подій та подорожей",
+      "en": "Architects of business events and travel"
+    },
+    "contact": {"name": "адміністратору", "telegram": "https://t.me/idea_cards_demo"}
+  },
+  "people": [
+    {
+      "slug": "olena-kovalenko",
+      "first": {"uk": "Олена", "en": "Olena"},
+      "last": {"uk": "Коваленко", "en": "Kovalenko"},
+      "title": {"uk": "Менеджер з корпоративних подорожей", "en": "Corporate Travel Manager"},
+      "bio": {
+        "uk": "Організовую відрядження й бізнес-події для корпоративних клієнтів.",
+        "en": "I organise business trips and events for corporate clients."
+      },
+      "city": {"uk": "Київ", "en": "Kyiv"},
+      "phone": "+380000000000",
+      "email": "olena.kovalenko@ideatravel.test",
+      "links": {
+        "linkedin": "https://linkedin.com/in/olena-kovalenko-demo",
+        "telegram": "https://t.me/olena_kovalenko_demo"
+      }
+    }
+  ]
+}
