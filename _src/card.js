@@ -13,17 +13,31 @@
   }));
   setLang(root.dataset.lang);
 
+  // Full-screen QR for scanning across a table: name above, close hint below, screen kept awake.
   const qr = document.querySelector(".share-qr");
-  qr?.addEventListener("click", () => {
+  const openZoom = async () => {
+    if (document.querySelector(".zoom")) return;
     const zoom = document.createElement("div");
     zoom.className = "zoom";
-    zoom.innerHTML = qr.innerHTML;
-    const close = () => { zoom.remove(); document.removeEventListener("keydown", onKey); };
+    zoom.innerHTML =
+      `<div class="zoom-name">${document.querySelector(".pass-name").innerHTML}</div>${qr.innerHTML}` +
+      '<div class="zoom-hint"><span data-l="uk">Торкніться, щоб закрити</span><span data-l="en">Tap to close</span></div>';
+    let lock = null;
+    const close = () => {
+      zoom.remove();
+      document.removeEventListener("keydown", onKey);
+      lock?.release().catch(() => {});
+    };
     const onKey = (e) => { if (e.key === "Escape") close(); };
     zoom.addEventListener("click", close);
     document.addEventListener("keydown", onKey);
     document.body.append(zoom);
-  });
+    try { lock = await navigator.wakeLock?.request("screen"); } catch {}
+    if (!zoom.isConnected) lock?.release().catch(() => {});
+  };
+  qr?.addEventListener("click", openZoom);
+  // ?qr=1 opens the big code at once: add the card to the home screen from that link for a one-tap QR.
+  if (qr && new URLSearchParams(location.search).has("qr")) openZoom();
 
   const share = document.querySelector(".share-btn");
   share?.addEventListener("click", async () => {

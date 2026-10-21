@@ -37,6 +37,7 @@
     title: person.title.uk,
     url: person.url,
     urlEn: `${person.url}?lang=en`,
+    urlQr: `${person.url}?qr=1`,
     cardName: fullName(person, cardLang),
     cardTitle: person.title[cardLang],
     company: data.company,

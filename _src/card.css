@@ -137,8 +137,13 @@
 }
 .share-btn svg { width: 17px; height: 17px; }
 
-.zoom { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 24px; background: #fff; cursor: zoom-out; }
-.zoom svg { width: min(86vw, 80vh, 520px); height: auto; }
+.zoom {
+  position: fixed; inset: 0; z-index: 10; padding: 24px; background: #fff; color: #0a0a0a; cursor: zoom-out;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; text-align: center;
+}
+.zoom svg { width: min(86vw, 62vh, 520px); height: auto; }
+.zoom-name { font-size: clamp(22px, 6vw, 30px); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; text-wrap: balance; }
+.zoom-hint { font-size: 14px; color: #5c574f; }
 
 /* ── Footer ─────────────────────────────────────────────────────── */
 .foot { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 14px; text-align: center; }
